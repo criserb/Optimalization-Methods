@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LiveCharts;
+using LiveCharts.Defaults;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,8 +14,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using OxyPlot;
-using OxyPlot.Series;
 
 namespace Optimalization_Methods.Menu.Randomness
 {
@@ -22,13 +22,30 @@ namespace Optimalization_Methods.Menu.Randomness
     /// </summary>
     public partial class CauchyDistribution : Page
     {
-        public PlotModel MyModel { get; private set; }
-
         public CauchyDistribution()
         {
             InitializeComponent();
-            this.MyModel = new PlotModel { Title = "Cauchy Distribution" };
-            this.MyModel.Series.Add(new FunctionSeries(Math.Cos, 0, 10, 0.1, "cos(x)"));
+
+            var r = new Random();
+            ValuesA = new ChartValues<double>();
+
+            for (var i = 0; i < 20; i++)
+            {
+                ValuesA.Add(r.Next() % 101);
+            }
+
+            DataContext = this;
+        }
+
+        public ChartValues<double> ValuesA { get; set; }
+
+        private void RandomizeOnClick(object sender, RoutedEventArgs e)
+        {
+            var r = new Random();
+            for (var i = 0; i < 20; i++)
+            {
+                ValuesA[i] = r.Next() % 101;
+            }
         }
     }
 }

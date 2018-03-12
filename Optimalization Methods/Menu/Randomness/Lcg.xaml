@@ -8,24 +8,20 @@
       d:DesignHeight="600" d:DesignWidth="1024"
       Title="Lcg">
 
-    <Grid>
-        <TextBox x:Name="MBox" Margin="95,191,0,0" Text="4294967296"/>
-        <TextBox x:Name="ABox" Margin="95,219,0,0" Text="843314861"/>
-        <TextBox x:Name="CBox" Margin="95,247,0,0" Text="453816693"/>
-        <TextBox x:Name="SeedBox" Margin="94,275,0,0"/>
-        <Label Content="m:" HorizontalAlignment="Left" Margin="52,191,0,0" VerticalAlignment="Top" Height="23" Foreground="White" Width="33"/>
-        <Label Content="a:" HorizontalAlignment="Left" Margin="52,221,0,0" VerticalAlignment="Top" Height="23" Foreground="White" Width="33"/>
-        <Label Content="c:" HorizontalAlignment="Left" Margin="52,247,0,0" VerticalAlignment="Top" Height="23" Foreground="White" Width="33"/>
-        <Label Content="seed*:" HorizontalAlignment="Left" Margin="52,275,0,0" VerticalAlignment="Top" Height="23" Foreground="White"/>
-        <Grid x:Name="myGrid" HorizontalAlignment="Left" Height="500" Margin="329,38,0,0" VerticalAlignment="Top" Width="650">
-            <Grid.Background>
-                <SolidColorBrush Color="White"/>
-            </Grid.Background>
-        </Grid>
-        <Button x:Name="BtnStart" Content="Start" HorizontalAlignment="Left" Margin="52,352,0,0" VerticalAlignment="Top" Width="102" Click="BtnStart_Click" Height="24" Style="{StaticResource ButtonStyleGreen}" />
-        <Button x:Name="BtnStop" Content="Stop" HorizontalAlignment="Left" Margin="164,352,0,0" VerticalAlignment="Top" Width="102" Click="BtnStop_Click" Height="24" IsCancel="True" Style="{StaticResource ButtonStyleRed}" IsEnabled="False"/>
-        <Label x:Name="loopNumber" Content="{ Binding counter }" HorizontalAlignment="Left" Margin="144,312,0,0" VerticalAlignment="Top" Width="122" Foreground="White"/>
-        <Label Content="Loop number: " HorizontalAlignment="Left" Margin="52,312,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Label Content="* if we set seed as empty it will be given by actual second" HorizontalAlignment="Left" Margin="10,562,0,0" VerticalAlignment="Top" Height="28" Foreground="White"/>
+    <Grid Width="1024" Height="600" Background="#FF171717">
+        <TextBox x:Name="MBox" Margin="140,144,0,0" Text="4294967296" Height="26"/>
+        <TextBox x:Name="ABox" Margin="140,172,0,0" Text="843314861" Height="26"/>
+        <TextBox x:Name="CBox" Margin="140,200,0,0" Text="453816693" Height="26"/>
+        <TextBox x:Name="SeedBox" Margin="139,228,0,0" Height="26"/>
+        <Label Content="m:"  Margin="97,144,0,0"  Height="24"  Width="33"/>
+        <Label Content="a:"  Margin="97,174,0,0"  Height="24"  Width="33"/>
+        <Label Content="c:"  Margin="97,200,0,0"  Height="24"  Width="33"/>
+        <Label Content="seed*:"  Margin="97,228,0,0"  Height="24" />
+        <Grid x:Name="myGrid"  Height="500" Margin="329,38,0,0"  Width="650" Background="White"/>
+        <Button x:Name="BtnStart" Content="Start"  Margin="52,400,0,0"  Width="102" Click="BtnStart_Click" Height="24" Style="{StaticResource ButtonStyleGreen}" />
+        <Button x:Name="BtnStop" Content="Stop"  Margin="164,400,0,0"  Width="102" Click="BtnStop_Click" Height="24" Style="{StaticResource ButtonStyleRed}" IsEnabled="False"/>
+        <Label x:Name="loopNumber" Content="{ Binding counter }"  Margin="144,324,0,0"  Width="122" />
+        <Label Content="Loop number: "  Margin="52,324,0,0"  />
+        <Label Content="* if we set seed as empty it will be given by actual second"  Margin="10,562,0,0"  Height="28" />
     </Grid>
 </Page>
