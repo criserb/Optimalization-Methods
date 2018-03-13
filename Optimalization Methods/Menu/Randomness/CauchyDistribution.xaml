@@ -14,12 +14,6 @@
             <RowDefinition Height="133*"/>
         </Grid.RowDefinitions>
         <Grid x:Name="myGrid" Height="500" Margin="329,38,0,0" Width="650" Background="#FFC5C5C5" Grid.RowSpan="2">
-            <!--<Grid.Background>
-                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                    <GradientStop Color="#FF9E9E9E"/>
-                    <GradientStop Color="#FF575757" Offset="1"/>
-                </LinearGradientBrush>
-            </Grid.Background>-->
             <Label Content="Cauchy Distribution"  Height="51" Width="650" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24" Foreground="#FF686868" Margin="1,-15,-1,0" RenderTransformOrigin="0.5,0.5" />
             <lvc:CartesianChart x:Name="myChart" LegendLocation="Bottom" Grid.Row="1" Width="Auto" Height="Auto" Foreground="#FF272727" BorderBrush="#FF272727" ScrollBarFill="#1EFFFFFF" >
                 <lvc:CartesianChart.Series>

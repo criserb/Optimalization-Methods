@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using Accord.Statistics;
 using Accord.Statistics.Distributions;
 using Accord.Statistics.Distributions.Univariate;
+using LiveCharts.Wpf;
 
 namespace Optimalization_Methods.Menu.Randomness
 {
@@ -24,10 +25,7 @@ namespace Optimalization_Methods.Menu.Randomness
     /// Interaction logic for CauchyDistribution.xaml
     /// </summary>
     public partial class Cauchy : Page
-    {
-        /// <summary>
-        /// Probability density function
-        /// </summary>
+    { 
         public ChartValues<ObservablePoint> Pdf { get; set; }
 
         public Cauchy()
@@ -49,6 +47,7 @@ namespace Optimalization_Methods.Menu.Randomness
             }
 
             DataContext = this;
+
         }
 
         private void BtnPlot_Click(object sender, RoutedEventArgs e)
