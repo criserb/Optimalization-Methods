@@ -28,27 +28,32 @@ namespace Optimalization_Methods.Menu.Randomness
         /// <summary>
         /// Probability density function
         /// </summary>
-        public ChartValues<double> Pdf { get; set; }
+        public ChartValues<ObservablePoint> Pdf { get; set; }
 
         public Cauchy()
         {
-            InitializeComponent();     
-        } 
+            InitializeComponent();
+            GeneratePlot();
+        }
 
-        private void BtnStart_Click(object sender, RoutedEventArgs e)
+        private void GeneratePlot()
         {
-
             DataContext = null;
 
-            Pdf = new ChartValues<double>();
-            CauchyDistribution myCauchy = new CauchyDistribution(Double.Parse(RangeFromBox.Text),Double.Parse(RangeFromBox.Text));
+            Pdf = new ChartValues<ObservablePoint>();
+            CauchyDistribution myCauchy = new CauchyDistribution(Double.Parse(LocationBox.Text), Double.Parse(ScaleBox.Text));
 
             for (double i = Double.Parse(RangeFromBox.Text); i <= Double.Parse(RangeToBox.Text); i += Double.Parse(StepBox.Text))
             {
-                Pdf.Add(myCauchy.ProbabilityDensityFunction(i));
+                Pdf.Add(new ObservablePoint(i, myCauchy.ProbabilityDensityFunction(i)));
             }
 
             DataContext = this;
+        }
+
+        private void BtnPlot_Click(object sender, RoutedEventArgs e)
+        {
+            GeneratePlot();
         }
     }
 }

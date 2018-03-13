@@ -22,11 +22,11 @@
             </Grid.Background>-->
             <Label Content="Cauchy Distribution"  Height="51" Width="650" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24" Foreground="#FF686868" Margin="1,-15,-1,0" RenderTransformOrigin="0.5,0.5" />
             <lvc:CartesianChart x:Name="myChart" LegendLocation="Bottom" Grid.Row="1" Width="Auto" Height="Auto" Foreground="#FF272727" BorderBrush="#FF272727" ScrollBarFill="#1EFFFFFF" >
-                <!--<lvc:CartesianChart.Series>
+                <lvc:CartesianChart.Series>
                     <lvc:LineSeries Title="CauchyChart" Values="{Binding Pdf}" LineSmoothness="1" StrokeThickness="1" 
                                 DataLabels="False" FontSize="20" Foreground="DarkGray"
                                 Stroke="Green" Fill="Transparent" PointGeometrySize="2" />
-                </lvc:CartesianChart.Series>-->
+                </lvc:CartesianChart.Series>
                 <lvc:CartesianChart.ChartLegend>
                     <lvc:DefaultLegend BulletSize="10" Background="Red"/>
                 </lvc:CartesianChart.ChartLegend>
@@ -35,7 +35,7 @@
                                         ShowSeries="False" Foreground="White"/>
                 </lvc:CartesianChart.DataTooltip>
                 <lvc:CartesianChart.AxisX>
-                    <lvc:Axis Foreground="Gray" Title="x">
+                    <lvc:Axis Foreground="Gray" Title="x" >
                         <lvc:Axis.Separator>
                             <lvc:Separator IsEnabled="True"></lvc:Separator>
                         </lvc:Axis.Separator>
@@ -60,7 +60,7 @@
         <Label Content="scale (γ&gt;0): "  Margin="52,172,0,0"  Height="26"  Width="87"/>
         <Label Content="range from:"  Margin="52,200,0,0"  Height="26"  Width="87"/>
         <Label Content="range to:"  Margin="52,228,0,0"  Height="26" Width="87" />
-        <Button x:Name="BtnStart" Content="Start"  Margin="114,401,0,0"  Width="102" Click="BtnStart_Click" Height="24" Style="{StaticResource ButtonStyleGreen}" />
+        <Button x:Name="BtnPlot" Content="Plot"  Margin="114,401,0,0"  Width="102" Click="BtnPlot_Click" Height="24" Style="{StaticResource ButtonStyleGreen}" />
 
     </Grid>
 </Page>
