@@ -14,38 +14,41 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Accord.Statistics;
+using Accord.Statistics.Distributions;
+using Accord.Statistics.Distributions.Univariate;
 
 namespace Optimalization_Methods.Menu.Randomness
 {
     /// <summary>
     /// Interaction logic for CauchyDistribution.xaml
     /// </summary>
-    public partial class CauchyDistribution : Page
+    public partial class Cauchy : Page
     {
-        public CauchyDistribution()
+        /// <summary>
+        /// Probability density function
+        /// </summary>
+        public ChartValues<double> Pdf { get; set; }
+
+        public Cauchy()
         {
-            InitializeComponent();
+            InitializeComponent();     
+        } 
 
-            var r = new Random();
-            ValuesA = new ChartValues<double>();
+        private void BtnStart_Click(object sender, RoutedEventArgs e)
+        {
 
-            for (var i = 0; i < 20; i++)
+            DataContext = null;
+
+            Pdf = new ChartValues<double>();
+            CauchyDistribution myCauchy = new CauchyDistribution(Double.Parse(RangeFromBox.Text),Double.Parse(RangeFromBox.Text));
+
+            for (double i = Double.Parse(RangeFromBox.Text); i <= Double.Parse(RangeToBox.Text); i += Double.Parse(StepBox.Text))
             {
-                ValuesA.Add(r.Next() % 101);
+                Pdf.Add(myCauchy.ProbabilityDensityFunction(i));
             }
 
             DataContext = this;
-        }
-
-        public ChartValues<double> ValuesA { get; set; }
-
-        private void RandomizeOnClick(object sender, RoutedEventArgs e)
-        {
-            var r = new Random();
-            for (var i = 0; i < 20; i++)
-            {
-                ValuesA[i] = r.Next() % 101;
-            }
         }
     }
 }

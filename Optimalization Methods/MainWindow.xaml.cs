@@ -23,7 +23,7 @@ namespace Optimalization_Methods
         public MainWindow()
         {
             InitializeComponent();
-            myFrame.NavigationService.Navigate(new Menu.Randomness.CauchyDistribution());
+            myFrame.NavigationService.Navigate(new Menu.Randomness.Cauchy());
             myFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
         }
     }

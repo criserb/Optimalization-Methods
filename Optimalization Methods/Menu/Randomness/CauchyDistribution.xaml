@@ -1,4 +1,4 @@
-﻿<Page x:Class="Optimalization_Methods.Menu.Randomness.CauchyDistribution"
+﻿<Page x:Class="Optimalization_Methods.Menu.Randomness.Cauchy"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -9,47 +9,40 @@
              d:DesignHeight="600" d:DesignWidth="1024">
 
     <Grid Height="600" Width="1024" Background="#FF171717">
-        <Button  Margin="-294,494,314,-54" Click="RandomizeOnClick">Randomize</Button>
-        <Grid x:Name="myGrid" Height="500" Margin="329,38,0,0" Width="650">
-            <Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="467*"/>
+            <RowDefinition Height="133*"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="myGrid" Height="500" Margin="329,38,0,0" Width="650" Background="#FFC5C5C5" Grid.RowSpan="2">
+            <!--<Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                     <GradientStop Color="#FF9E9E9E"/>
                     <GradientStop Color="#FF575757" Offset="1"/>
                 </LinearGradientBrush>
-            </Grid.Background>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
-
-            <lvc:CartesianChart LegendLocation="Bottom" Grid.Row="1" Width="Auto" Height="Auto" BorderBrush="White" Foreground="White">
-                <!--<lvc:CartesianChart.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FFE8E8E8" Offset="0"/>
-                        <GradientStop Color="#FF919191" Offset="1"/>
-                    </LinearGradientBrush>
-                </lvc:CartesianChart.Background>-->
-                <lvc:CartesianChart.Series>
-                    <!--<lvc:ScatterSeries Title="Series A" Values="{Binding ValuesA}" />-->
-                    <lvc:LineSeries Values="{Binding ValuesA}" LineSmoothness="1" StrokeThickness="1" 
-                                DataLabels="False" FontSize="20" Foreground="#6B303030"
-                                Stroke="White" Fill="Transparent" PointGeometrySize="2" PointForeground="White" />
-                </lvc:CartesianChart.Series>
+            </Grid.Background>-->
+            <Label Content="Cauchy Distribution"  Height="51" Width="650" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24" Foreground="#FF686868" Margin="1,-15,-1,0" RenderTransformOrigin="0.5,0.5" />
+            <lvc:CartesianChart x:Name="myChart" LegendLocation="Bottom" Grid.Row="1" Width="Auto" Height="Auto" Foreground="#FF272727" BorderBrush="#FF272727" ScrollBarFill="#1EFFFFFF" >
+                <!--<lvc:CartesianChart.Series>
+                    <lvc:LineSeries Title="CauchyChart" Values="{Binding Pdf}" LineSmoothness="1" StrokeThickness="1" 
+                                DataLabels="False" FontSize="20" Foreground="DarkGray"
+                                Stroke="Green" Fill="Transparent" PointGeometrySize="2" />
+                </lvc:CartesianChart.Series>-->
                 <lvc:CartesianChart.ChartLegend>
-                    <lvc:DefaultLegend BulletSize="20" Background="Red"/>
+                    <lvc:DefaultLegend BulletSize="10" Background="Red"/>
                 </lvc:CartesianChart.ChartLegend>
                 <lvc:CartesianChart.DataTooltip>
-                    <lvc:DefaultTooltip BulletSize="20" Background="Gray"/>
+                    <lvc:DefaultTooltip BulletSize="10" Background="Green" CornerRadius="25" ShowTitle="False" 
+                                        ShowSeries="False" Foreground="White"/>
                 </lvc:CartesianChart.DataTooltip>
                 <lvc:CartesianChart.AxisX>
-                    <lvc:Axis Foreground="White">
+                    <lvc:Axis Foreground="Gray" Title="x">
                         <lvc:Axis.Separator>
                             <lvc:Separator IsEnabled="True"></lvc:Separator>
                         </lvc:Axis.Separator>
                     </lvc:Axis>
                 </lvc:CartesianChart.AxisX>
                 <lvc:CartesianChart.AxisY>
-                    <lvc:Axis Foreground="White">
+                    <lvc:Axis Foreground="Gray" Title="Probability density function P(x)">
                         <lvc:Axis.Separator>
                             <lvc:Separator IsEnabled="True"></lvc:Separator>
                         </lvc:Axis.Separator>
@@ -57,5 +50,17 @@
                 </lvc:CartesianChart.AxisY>
             </lvc:CartesianChart>
         </Grid>
+        <TextBox x:Name="LocationBox" Margin="140,144,0,0" Text="0" Height="26"/>
+        <TextBox x:Name="ScaleBox" Margin="140,172,0,0" Text="1" Height="26"/>
+        <TextBox x:Name="RangeFromBox" Margin="140,200,0,0" Text="-4" Height="26"/>
+        <TextBox x:Name="RangeToBox" Margin="140,228,0,0" Height="26" Text="4"/>
+        <TextBox x:Name="StepBox" Margin="140,256,0,0" Height="26" Text="0,1"/>
+        <Label Content="step:"  Margin="52,256,0,0"  Height="26" Width="87" />
+        <Label Content="location (x0):"  Margin="52,144,0,0"  Height="26"  Width="87"/>
+        <Label Content="scale (γ&gt;0): "  Margin="52,172,0,0"  Height="26"  Width="87"/>
+        <Label Content="range from:"  Margin="52,200,0,0"  Height="26"  Width="87"/>
+        <Label Content="range to:"  Margin="52,228,0,0"  Height="26" Width="87" />
+        <Button x:Name="BtnStart" Content="Start"  Margin="114,401,0,0"  Width="102" Click="BtnStart_Click" Height="24" Style="{StaticResource ButtonStyleGreen}" />
+
     </Grid>
 </Page>
