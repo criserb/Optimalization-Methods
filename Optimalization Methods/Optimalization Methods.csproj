@@ -77,11 +77,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Menu\Randomness\CauchyDistribution.xaml.cs">
-      <DependentUpon>CauchyDistribution.xaml</DependentUpon>
+    <Compile Include="Menu\FireflyAlgorithm.cs" />
+    <Compile Include="Menu\FireflyView.xaml.cs">
+      <DependentUpon>FireflyView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Menu\Randomness\Lcg.xaml.cs">
-      <DependentUpon>Lcg.xaml</DependentUpon>
+    <Compile Include="Menu\Randomness\CauchyDistributionView.xaml.cs">
+      <DependentUpon>CauchyDistributionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Menu\Randomness\LcgView.xaml.cs">
+      <DependentUpon>LcgView.xaml</DependentUpon>
     </Compile>
     <Compile Include="RandomWalk.cs" />
     <Page Include="MainWindow.xaml">
@@ -96,11 +100,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Menu\Randomness\CauchyDistribution.xaml">
+    <Page Include="Menu\FireflyView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Menu\Randomness\Lcg.xaml">
+    <Page Include="Menu\Randomness\CauchyDistributionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Menu\Randomness\LcgView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

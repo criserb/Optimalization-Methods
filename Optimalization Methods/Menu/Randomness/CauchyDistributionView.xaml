@@ -1,4 +1,4 @@
-﻿<Page x:Class="Optimalization_Methods.Menu.Randomness.Cauchy"
+﻿<Page x:Class="Optimalization_Methods.Menu.Randomness.CauchyView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -48,8 +48,6 @@
         <TextBox x:Name="ScaleBox" Margin="140,172,0,0" Text="1" Height="26"/>
         <TextBox x:Name="RangeFromBox" Margin="140,200,0,0" Text="-4" Height="26"/>
         <TextBox x:Name="RangeToBox" Margin="140,228,0,0" Height="26" Text="4"/>
-        <TextBox x:Name="StepBox" Margin="140,256,0,0" Height="26" Text="0,1"/>
-        <Label Content="step:"  Margin="52,256,0,0"  Height="26" Width="87" />
         <Label Content="location (x0):"  Margin="52,144,0,0"  Height="26"  Width="87"/>
         <Label Content="scale (γ&gt;0): "  Margin="52,172,0,0"  Height="26"  Width="87"/>
         <Label Content="range from:"  Margin="52,200,0,0"  Height="26"  Width="87"/>

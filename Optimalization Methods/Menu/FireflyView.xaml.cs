@@ -12,21 +12,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Optimalization_Methods.Menu;
-using Optimalization_Methods.Menu.Randomness;
 
-namespace Optimalization_Methods
+namespace Optimalization_Methods.Menu
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Firefly.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class FireflyView : Page
     {
-        public MainWindow()
+        public FireflyView()
         {
             InitializeComponent();
-            myFrame.NavigationService.Navigate(new FireflyView());
-            myFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+            FireflyAlgorithm.Start(myTextBox);
         }
     }
 }

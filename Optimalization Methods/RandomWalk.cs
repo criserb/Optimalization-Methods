@@ -28,9 +28,6 @@ namespace Optimalization_Methods
 
         public void Update(long randomNumber)
         {
-
-            if (_myTiles[Convert.ToInt32(randomNumber % _myTiles.Count)].Fill != Brushes.White)
-            {
                 SolidColorBrush newBrush = (SolidColorBrush)_myTiles[Convert.ToInt32(randomNumber % _myTiles.Count)].Fill;
                 int R = newBrush.Color.R;
                 R = (R + 75) % 255;
@@ -38,10 +35,7 @@ namespace Optimalization_Methods
                 G = (G - 35) % 255;
                 int B = newBrush.Color.B;
                 B = (B + 15) % 255;
-                _myTiles[Convert.ToInt32(randomNumber % _myTiles.Count)].Fill = new SolidColorBrush(Color.FromRgb((byte)R, (byte)G, (byte)B));
-            }
-            else
-                _myTiles[Convert.ToInt32(randomNumber % _myTiles.Count)].Fill = Brushes.DarkGreen; //#FF006400
+                _myTiles[Convert.ToInt32(randomNumber % _myTiles.Count)].Fill = new SolidColorBrush(Color.FromRgb((byte)R, (byte)G, (byte)B)); 
         }
     }
 }

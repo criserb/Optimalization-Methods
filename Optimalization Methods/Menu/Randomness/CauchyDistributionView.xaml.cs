@@ -24,11 +24,11 @@ namespace Optimalization_Methods.Menu.Randomness
     /// <summary>
     /// Interaction logic for CauchyDistribution.xaml
     /// </summary>
-    public partial class Cauchy : Page
-    { 
+    public partial class CauchyView : Page
+    {
         public ChartValues<ObservablePoint> Pdf { get; set; }
 
-        public Cauchy()
+        public CauchyView()
         {
             InitializeComponent();
             GeneratePlot();
@@ -41,7 +41,11 @@ namespace Optimalization_Methods.Menu.Randomness
             Pdf = new ChartValues<ObservablePoint>();
             CauchyDistribution myCauchy = new CauchyDistribution(Double.Parse(LocationBox.Text), Double.Parse(ScaleBox.Text));
 
-            for (double i = Double.Parse(RangeFromBox.Text); i <= Double.Parse(RangeToBox.Text); i += Double.Parse(StepBox.Text))
+            double from = Double.Parse(RangeFromBox.Text);
+            double to = Double.Parse(RangeToBox.Text);
+            double step = (Math.Abs(from) + Math.Abs(to)) / 100;
+
+            for (double i = from; i <= to; i += step)
             {
                 Pdf.Add(new ObservablePoint(i, myCauchy.ProbabilityDensityFunction(i)));
             }

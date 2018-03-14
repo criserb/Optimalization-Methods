@@ -18,14 +18,14 @@ namespace Optimalization_Methods.Menu.Randomness
     /// <summary>
     /// Interaction logic for Lcg.xaml
     /// </summary>
-    public partial class Lcg : Page
+    public partial class LcgView : Page
     {
         private bool _loop;
         private long _m, _a, _c, _seed, _counter, _last;
         private const double _lineLength = 10;
         private List<Rectangle> _myTiles;
 
-        public Lcg()
+        public LcgView()
         {
             InitializeComponent();
             _myTiles = InitializeGrid();
