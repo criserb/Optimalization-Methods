@@ -9,11 +9,12 @@ namespace Optimalization_Methods.Menu
 {
     class FireflyAlgorithm
     {
+        static private double trueMin = 0;
 
         static private TextBox _textBox;
-        static  void AddToTextBox(string s)
+        static void AddToTextBox(string s)
         {
-           _textBox.Text += s + '\n';
+            _textBox.Text += s + '\n';
         }
 
         static void AddToTextBoxWithoutNewLine(string s)
@@ -24,9 +25,10 @@ namespace Optimalization_Methods.Menu
         static void ShowVector(double[] v, int dec, bool nl)
         {
             for (int i = 0; i < v.Length; ++i)
-                AddToTextBox(v[i].ToString("F" + dec) + " ");
+                AddToTextBoxWithoutNewLine(v[i].ToString("F" + dec) + " ");
             if (nl == true)
-                AddToTextBox("");
+                AddToTextBox(" ");
+            AddToTextBox(" ");
         }
 
         public static void Start(TextBox textBox)
@@ -37,6 +39,17 @@ namespace Optimalization_Methods.Menu
             AddToTextBox("Goal is to solve the Michalewicz benchmark function");
             AddToTextBox("The function has a known minimum value of -4.687658");
             AddToTextBox("x = 2.2029 1.5707 1.2850 1.9231 1.7205");
+
+            //double[] p;// = { 2.2029, 1.5707, 1.2850, 1.9231, 1.7205 };
+            List<double> lp = new List<double>
+            {
+                2.2029,
+                1.5707,
+                1.2850,
+                1.9231,
+                1.7205
+            };
+            trueMin = Michalewicz(lp.ToArray());
 
             int numFireflies = 40;
             int dim = 5;
@@ -54,7 +67,7 @@ namespace Optimalization_Methods.Menu
 
             AddToTextBox("Best solution found: ");
             AddToTextBoxWithoutNewLine("x = ");
-            ShowVector(bestPosition, 4, true);
+            ShowVector(bestPosition, 4, false);
             double z = Michalewicz(bestPosition);
             AddToTextBoxWithoutNewLine("Value of function at best position = ");
             AddToTextBox(z.ToString("F6"));
@@ -63,7 +76,7 @@ namespace Optimalization_Methods.Menu
             AddToTextBox(error.ToString("F4"));
 
             AddToTextBox("End firefly demo");
-            Console.ReadLine();
+            //Console.ReadLine();
         }
 
         static double[] Solve(int numFireflies, int dim,
@@ -170,11 +183,11 @@ namespace Optimalization_Methods.Menu
         static double Error(double[] xValues)
         {
             int dim = xValues.Length;
-            double trueMin = 0.0;
-            if (dim == 2)
-                trueMin = -1.8013; // Approx.
-            else if (dim == 5)
-                trueMin = -4.687658; // Approx.
+            //double trueMin = 0.0;
+            //if (dim == 2)
+            //    trueMin = -1.8013; // Approx.
+            //else if (dim == 5)
+            //    trueMin = -4.687658; // Approx.
             double calculated = Michalewicz(xValues);
             return (trueMin - calculated) * (trueMin - calculated);
         }

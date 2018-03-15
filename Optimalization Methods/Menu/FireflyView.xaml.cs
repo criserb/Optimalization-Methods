@@ -25,5 +25,15 @@ namespace Optimalization_Methods.Menu
             InitializeComponent();
             FireflyAlgorithm.Start(myTextBox);
         }
+
+        private void BtnPlot_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnLoad_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

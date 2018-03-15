@@ -52,7 +52,7 @@
         <Label Content="scale (γ&gt;0): "  Margin="52,172,0,0"  Height="26"  Width="87"/>
         <Label Content="range from:"  Margin="52,200,0,0"  Height="26"  Width="87"/>
         <Label Content="range to:"  Margin="52,228,0,0"  Height="26" Width="87" />
-        <Button x:Name="BtnPlot" Content="Plot"  Margin="114,401,0,0"  Width="102" Click="BtnPlot_Click" Height="24" Style="{StaticResource ButtonStyleGreen}" />
+        <Button x:Name="BtnPlot" Content="Plot"  Margin="91,399,0,0"  Width="102" Click="BtnPlot_Click" Height="24" Style="{StaticResource ButtonStyleGreen}" />
 
     </Grid>
 </Page>

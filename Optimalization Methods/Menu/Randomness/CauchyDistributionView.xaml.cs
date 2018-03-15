@@ -27,6 +27,7 @@ namespace Optimalization_Methods.Menu.Randomness
     public partial class CauchyView : Page
     {
         public ChartValues<ObservablePoint> Pdf { get; set; }
+        private double from, to, location, scale;
 
         public CauchyView()
         {
@@ -38,12 +39,17 @@ namespace Optimalization_Methods.Menu.Randomness
         {
             DataContext = null;
 
+            if (!double.TryParse(RangeFromBox.Text, out from) || !double.TryParse(RangeToBox.Text, out to) ||
+                !double.TryParse(LocationBox.Text, out location) || !double.TryParse(ScaleBox.Text, out scale))
+            {
+                MessageBox.Show("Nieprawidłowy format ciągu wejściowego");
+                return;
+            }
+
+            double step = (Math.Abs(from) + Math.Abs(to)) / 100;
+
             Pdf = new ChartValues<ObservablePoint>();
             CauchyDistribution myCauchy = new CauchyDistribution(Double.Parse(LocationBox.Text), Double.Parse(ScaleBox.Text));
-
-            double from = Double.Parse(RangeFromBox.Text);
-            double to = Double.Parse(RangeToBox.Text);
-            double step = (Math.Abs(from) + Math.Abs(to)) / 100;
 
             for (double i = from; i <= to; i += step)
             {

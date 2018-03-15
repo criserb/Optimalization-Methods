@@ -4,12 +4,59 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Optimalization_Methods.Menu"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="1024"
       Title="Firefly">
 
-    <Grid Height="600" Width="1024">
-        <TextBox x:Name="myTextBox" TextWrapping="Wrap" HorizontalAlignment="Left" Height="600"  VerticalAlignment="Top" Width="1024"/>
+    <Grid Height="600" Width="1024" Background="#FF171717">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="467*"/>
+            <RowDefinition Height="133*"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="myGrid" Height="500" Margin="329,38,0,0" Width="650" Background="#FFC5C5C5" Grid.RowSpan="2">
+            <Label Content="Firefly Algorithm"  Height="51" Width="650" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24" Foreground="#FF686868" Margin="1,-15,-1,0" RenderTransformOrigin="0.5,0.5" />
+            <lvc:CartesianChart x:Name="myChart" LegendLocation="Bottom" Grid.Row="1" Width="Auto" Height="Auto" Foreground="#FF272727" BorderBrush="#FF272727" ScrollBarFill="#1EFFFFFF" >
+                <lvc:CartesianChart.Series>
+                    <lvc:LineSeries Values="{Binding Pdf}" LineSmoothness="1" StrokeThickness="1" 
+                                DataLabels="False" FontSize="20" Foreground="DarkGray"
+                                Stroke="Green" Fill="Transparent" PointGeometrySize="2" />
+                </lvc:CartesianChart.Series>
+                <lvc:CartesianChart.ChartLegend>
+                    <lvc:DefaultLegend BulletSize="10" Background="Red"/>
+                </lvc:CartesianChart.ChartLegend>
+                <lvc:CartesianChart.DataTooltip>
+                    <lvc:DefaultTooltip BulletSize="10" Background="Green" CornerRadius="25" ShowTitle="False" 
+                                        ShowSeries="False" Foreground="White"/>
+                </lvc:CartesianChart.DataTooltip>
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Foreground="Gray" Title="x" >
+                        <lvc:Axis.Separator>
+                            <lvc:Separator IsEnabled="True"></lvc:Separator>
+                        </lvc:Axis.Separator>
+                    </lvc:Axis>
+                </lvc:CartesianChart.AxisX>
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Foreground="Gray" Title="Probability density function P(x)">
+                        <lvc:Axis.Separator>
+                            <lvc:Separator IsEnabled="True"></lvc:Separator>
+                        </lvc:Axis.Separator>
+                    </lvc:Axis>
+                </lvc:CartesianChart.AxisY>
+            </lvc:CartesianChart>
+        </Grid>
+        <TextBox x:Name="myTextBox" TextWrapping="Wrap" HorizontalAlignment="Left" Height="600"  VerticalAlignment="Top" Width="416" Margin="608,38,0,-38" Grid.RowSpan="2"/>
+        <TextBox x:Name="FirefliesBox" Margin="140,144,0,0" IsReadOnly="True" Text="40" Height="26"/>
+        <TextBox x:Name="DimBox" Margin="140,172,0,0" Text="5" Height="26"/>
+        <TextBox x:Name="EpochsBox" Margin="140,200,0,0" Text="1000" Height="26"/>
+        <TextBox x:Name="SeedBox" Margin="140,228,0,0" Height="26" Text="0"/>
+        <Label Content="number of fireflies:"  Margin="30,144,0,0"  Height="26"  Width="109"/>
+        <Label Content="dim: "  Margin="30,172,0,0"  Height="26"  Width="87"/>
+        <Label Content="max epochs:"  Margin="30,198,0,0"  Height="26"  Width="87"/>
+        <Label Content="seed:"  Margin="30,226,0,0"  Height="26" Width="87" />
+        <Button x:Name="BtnPlot" Content="Plot"  Margin="85,401,0,0"  Width="102" Click="BtnPlot_Click" Height="24" Style="{StaticResource ButtonStyleGreen}" />
+        <Button x:Name="BtnLoad" Content="Load points from file"  Margin="30,351,0,0"  Width="205" Height="24" Style="{StaticResource ButtonStyleGreen}" Click="BtnLoad_Click" />
+        <Label x:Name="FileName" Content="None file in memory" HorizontalAlignment="Left" Margin="30,113,0,0" VerticalAlignment="Top" Width="294"/>
 
     </Grid>
 </Page>
