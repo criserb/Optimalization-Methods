@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
         <Grid x:Name="myGrid" Height="500" Margin="329,38,0,0" Width="650" Background="#FFC5C5C5" Grid.RowSpan="2">
             <Label Content="Cauchy Distribution"  Height="51" Width="650" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24" Foreground="#FF686868" Margin="1,-15,-1,0" RenderTransformOrigin="0.5,0.5" />
-            <lvc:CartesianChart x:Name="myChart" LegendLocation="Bottom" Grid.Row="1" Width="Auto" Height="Auto" Foreground="#FF272727" BorderBrush="#FF272727" ScrollBarFill="#1EFFFFFF" >
+            <lvc:CartesianChart x:Name="myChart" LegendLocation="Bottom" Width="Auto" Height="Auto" Foreground="#FF272727" BorderBrush="#FF272727" ScrollBarFill="#1EFFFFFF" Margin="1,36,-1,-2" >
                 <lvc:CartesianChart.Series>
                     <lvc:LineSeries Title="CauchyChart" Values="{Binding Pdf}" LineSmoothness="1" StrokeThickness="1" 
                                 DataLabels="False" FontSize="20" Foreground="DarkGray"

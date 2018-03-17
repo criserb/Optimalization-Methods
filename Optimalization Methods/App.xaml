@@ -88,10 +88,6 @@
                 <Setter Property="HorizontalAlignment" Value="Left" />
                 <Setter Property="VerticalAlignment" Value="Top" />
             </Style>
-            <Style TargetType="{x:Type Grid}">
-                <Setter Property="HorizontalAlignment" Value="Left" />
-                <Setter Property="VerticalAlignment" Value="Top" />
-            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

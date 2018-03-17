@@ -1,28 +1,56 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using org.mariuszgromada.math.mxparser;
 
 namespace Optimalization_Methods.Menu
 {
     class FireflyAlgorithm
     {
-        static private double trueMin = 0;
+        private double trueMin = 0;
+        private List<double> values;
+        private TextBox textBox;
+        private int numFireflies, maxEpochs, dim, seed = 0;
+        private double minX, maxX;
+        private List<double> points;
 
-        static private TextBox _textBox;
-        static void AddToTextBox(string s)
+        public FireflyAlgorithm(TextBox textBox, int numFireflies, int maxEpochs, double minX, double maxX, List<double> values)
         {
-            _textBox.Text += s + '\n';
+            this.textBox = textBox;
+            this.maxEpochs = maxEpochs;
+            this.numFireflies = numFireflies;
+            this.minX = minX;
+            this.maxX = maxX;
+            this.values = values;
+            this.dim = values.Count;
         }
 
-        static void AddToTextBoxWithoutNewLine(string s)
+        public FireflyAlgorithm(TextBox textBox, int numFireflies, int maxEpochs, double minX, double maxX)
         {
-            _textBox.Text += s;
+            this.textBox = textBox;
+            this.maxEpochs = maxEpochs;
+            this.numFireflies = numFireflies;
+            this.minX = minX;
+            this.maxX = maxX;
         }
 
-        static void ShowVector(double[] v, int dec, bool nl)
+        void AddToTextBox(string s)
+        {
+            textBox.Text += s + '\n';
+        }
+
+        void AddToTextBoxWithoutNewLine(string s)
+        {
+            textBox.Text += s;
+        }
+
+        void ShowVector(double[] v, int dec, bool nl)
         {
             for (int i = 0; i < v.Length; ++i)
                 AddToTextBoxWithoutNewLine(v[i].ToString("F" + dec) + " ");
@@ -31,64 +59,116 @@ namespace Optimalization_Methods.Menu
             AddToTextBox(" ");
         }
 
-        public static void Start(TextBox textBox)
+        public PlotInfo OwnFunction(string equation, string args)
         {
-            _textBox = textBox;
-
-            AddToTextBox("Begin firefly demo");
-            AddToTextBox("Goal is to solve the Michalewicz benchmark function");
-            AddToTextBox("The function has a known minimum value of -4.687658");
-            AddToTextBox("x = 2.2029 1.5707 1.2850 1.9231 1.7205");
-
-            //double[] p;// = { 2.2029, 1.5707, 1.2850, 1.9231, 1.7205 };
-            List<double> lp = new List<double>
+            //this.dim = args.Count;
+            Function function = new Function(equation);
+            string f = string.Empty;
+            for (int i = 0; i < equation.Length; i++)
             {
-                2.2029,
-                1.5707,
-                1.2850,
-                1.9231,
-                1.7205
+                if (equation[i] != ')')
+                    f += equation[i];
+                else
+                    break;
+            }
+
+            //string argsLine = "";
+            //for (int i = 0; i < args.Count; i++)
+            //{
+            //    argsLine += args[i];
+            //    if (i + 1 < args.Count)
+            //        argsLine += ',';
+            //}
+
+            MessageBox.Show("ArgsLine: " + args);
+
+            org.mariuszgromada.math.mxparser.Expression e1 =
+                new org.mariuszgromada.math.mxparser.Expression($"f({args.ToString()})", function);
+            double trueMin = e1.calculate();
+
+            AddToTextBox(trueMin.ToString());
+
+            PlotInfo plotInfo = new PlotInfo
+            {
+                SeriesIn = new List<double> { 1, 2 },
+                Error = 1,
+                Val = 1
             };
-            trueMin = Michalewicz(lp.ToArray());
 
-            int numFireflies = 40;
-            int dim = 5;
-            int maxEpochs = 1000;
-            int seed = 0;
+            //ShowDetails(bestPosition, trueMin, z, error);
 
-            AddToTextBox("Setting numFireflies = " + numFireflies);
-            AddToTextBox("Setting problem dim = " + dim);
-            AddToTextBox("Setting maxEpochs = " + maxEpochs);
-            AddToTextBox("Setting initialization seed = " + seed);
-
-            AddToTextBox("Starting firefly algorithm");
-            double[] bestPosition = Solve(numFireflies, dim, seed, maxEpochs);
-            AddToTextBox("Finished");
-
-            AddToTextBox("Best solution found: ");
-            AddToTextBoxWithoutNewLine("x = ");
-            ShowVector(bestPosition, 4, false);
-            double z = Michalewicz(bestPosition);
-            AddToTextBoxWithoutNewLine("Value of function at best position = ");
-            AddToTextBox(z.ToString("F6"));
-            double error = Error(bestPosition);
-            AddToTextBoxWithoutNewLine("Error at best position = ");
-            AddToTextBox(error.ToString("F4"));
-
-            AddToTextBox("End firefly demo");
-            //Console.ReadLine();
+            return plotInfo;
         }
 
-        static double[] Solve(int numFireflies, int dim,
-          int seed, int maxEpochs)
+        public PlotInfo Demo()
         {
+            trueMin = Michalewicz(values.ToArray());
+
+            double[] bestPosition = Solve();
+            double z = Michalewicz(bestPosition);
+            double error = Error(bestPosition);
+
+            PlotInfo plotInfo = new PlotInfo
+            {
+                SeriesIn = points,
+                Error = error,
+                Val = z
+            };
+
+            ShowDetails(bestPosition, trueMin, z, error);
+
+            return plotInfo;
+        }
+
+        private void ShowDetails(double[] bestPosition, double trueMin, double z, double error)
+        {
+            textBox.Text = String.Empty;
+            AddToTextBox($"True min at: {Math.Round(trueMin, 5)}");
+            AddToTextBox($"Best solution found:");
+            ShowVector(bestPosition, 4, false);
+            AddToTextBox($"Value of function at best position: {Math.Round(z, 5)}");
+            AddToTextBox($"Error at best position: {Math.Round(error, 5)}");
+        }
+
+        public void Start(TextBox textBox)
+        {
+            //AddToTextBox("Begin firefly demo");
+            //AddToTextBox("Goal is to solve the Michalewicz benchmark function");
+            //AddToTextBox("The function has a known minimum value of -4.687658");
+            //AddToTextBox("x = 2.2029 1.5707 1.2850 1.9231 1.7205");
+
+
+            //AddToTextBox("Setting numFireflies = " + numFireflies);
+            //AddToTextBox("Setting problem dim = " + dim);
+            //AddToTextBox("Setting maxEpochs = " + maxEpochs);
+            //AddToTextBox("Setting initialization seed = " + seed);
+
+            //AddToTextBox("Starting firefly algorithm");
+            //double[] bestPosition = Solve(numFireflies, dim, seed, maxEpochs);
+            //AddToTextBox("Finished");
+
+            //AddToTextBox("Best solution found: ");
+            //AddToTextBoxWithoutNewLine("x = ");
+            //ShowVector(bestPosition, 4, false);
+            //double z = Michalewicz(bestPosition);
+            //AddToTextBoxWithoutNewLine("Value of function at best position = ");
+            //AddToTextBox(z.ToString("F6"));
+            //double error = Error(bestPosition);
+            //AddToTextBoxWithoutNewLine("Error at best position = ");
+            //AddToTextBox(error.ToString("F4"));
+
+            //AddToTextBox("End firefly demo");
+            ////Console.ReadLine();
+        }
+
+        double[] Solve()
+        {
+            points = new List<double>();
             Random rnd = new Random(seed);
-            double minX = 0.0;
-            double maxX = 3.2;
             double B0 = 1.0;
             double g = 1.0;
             double a = 0.20;
-            int displayInterval = maxEpochs / 10;
+            // int displayInterval = maxEpochs / 10;
             double bestError = double.MaxValue;
             double[] bestPosition = new double[dim]; // Best ever
             Firefly[] swarm = new Firefly[numFireflies]; // All null
@@ -111,12 +191,12 @@ namespace Optimalization_Methods.Menu
             int epoch = 0;
             while (epoch < maxEpochs)
             {
-                if (epoch % displayInterval == 0 && epoch < maxEpochs)
-                {
-                    string sEpoch = epoch.ToString().PadLeft(6);
-                    AddToTextBoxWithoutNewLine("epoch = " + sEpoch);
-                    AddToTextBox(" error = " + bestError.ToString("F14"));
-                }
+                //if (epoch % displayInterval == 0 && epoch < maxEpochs)
+                //{
+                //    string sEpoch = epoch.ToString().PadLeft(6);
+                //    AddToTextBoxWithoutNewLine("epoch = " + sEpoch);
+                //    AddToTextBox(" error = " + bestError.ToString("F14"));
+                //}
                 for (int i = 0; i < numFireflies; ++i) // Each firefly
                 {
                     for (int j = 0; j < numFireflies; ++j) // Others
@@ -150,6 +230,7 @@ namespace Optimalization_Methods.Menu
                     for (int k = 0; k < dim; ++k)
                         bestPosition[k] = swarm[0].position[k];
                 }
+                points.Add(Michalewicz(bestPosition));
                 ++epoch;
             } // While
             return bestPosition;
@@ -157,7 +238,7 @@ namespace Optimalization_Methods.Menu
 
 
 
-        static double Distance(double[] posA, double[] posB)
+        double Distance(double[] posA, double[] posB)
         {
             double ssd = 0.0; // sum squared diffrences
             for (int i = 0; i < posA.Length; ++i)
@@ -166,7 +247,7 @@ namespace Optimalization_Methods.Menu
         }
 
 
-        static double Michalewicz(double[] xValues)
+        public double Michalewicz(double[] xValues)
         {
             double result = 0.0;
             for (int i = 0; i < xValues.Length; ++i)
@@ -180,7 +261,7 @@ namespace Optimalization_Methods.Menu
         }
 
 
-        static double Error(double[] xValues)
+        double Error(double[] xValues)
         {
             int dim = xValues.Length;
             //double trueMin = 0.0;
@@ -193,6 +274,21 @@ namespace Optimalization_Methods.Menu
         }
 
     }
+
+    public class PlotInfo
+    {
+        public List<double> SeriesIn { get; set; }
+        public double Error { get; set; }
+        public double Val { get; set; }
+        public PlotInfo() { }
+        public PlotInfo(List<double> seriesIn, double error, double val)
+        {
+            SeriesIn = seriesIn;
+            Error = error;
+            Val = val;
+        }
+    }
+
     public class Firefly : IComparable<Firefly>
     {
         public double[] position;

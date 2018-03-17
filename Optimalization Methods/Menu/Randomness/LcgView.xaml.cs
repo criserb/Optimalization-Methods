@@ -51,7 +51,7 @@ namespace Optimalization_Methods.Menu.Randomness
             SettingTiles();
             if (!long.TryParse(MBox.Text, out _m) || !long.TryParse(ABox.Text, out _a) || !long.TryParse(CBox.Text, out _c))
             {
-                MessageBox.Show("Nieprawidłowy format ciągu wejściowego");
+                MessageBox.Show("Wrong input format");
                 return;
             }
             long.TryParse(SeedBox.Text, out _seed);
