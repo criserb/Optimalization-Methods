@@ -54,49 +54,26 @@ namespace Optimalization_Methods.Menu
             if (!ValidateData()) return;
 
             PlotInfo plotInfo = new PlotInfo();
+            myFirefly = new FireflyAlgorithm(DetailsBox, numFireflies, maxEpochs, minX, maxX, values);
             switch (ComboBox.SelectedIndex)
             {
                 case 0:
-                    if (FunctionBox.Text == String.Empty)
-                        return;
-                    myFirefly = new FireflyAlgorithm(DetailsBox, numFireflies, maxEpochs, minX, maxX);
-                    plotInfo = myFirefly.OwnFunction(FunctionBox.Text, ReadArgs());
+                    plotInfo = myFirefly.Start(FunctionChoice.Michalewicz);
                     break;
                 case 1:
-                    myFirefly = new FireflyAlgorithm(DetailsBox, numFireflies, maxEpochs, minX, maxX, values);
-                    plotInfo = myFirefly.Demo();
+                    plotInfo = myFirefly.Start(FunctionChoice.Rosenbrock);
+                    break;
+                case 2:
+                    plotInfo = myFirefly.Start(FunctionChoice.Ackley);
+                    break;
+                case 3:
+                    plotInfo = myFirefly.Start(FunctionChoice.Rastrigin);
                     break;
                 default:
                     break;
             }
             if (plotInfo.SeriesIn != null)
                 GeneratePlot(plotInfo);
-        }
-
-        private string ReadArgs()
-        {
-            //List<Argument> args = new List<Argument>();
-            String[] items = ArgumentsBox.Text.
-               Split(new String[] { ",", Environment.NewLine },
-               StringSplitOptions.RemoveEmptyEntries);
-
-            string[] tmp;
-            string args = "";
-
-            for (int i = 0; i < items.Length; i++)
-            {
-                tmp = items[i].Split(new String[] { "=", Environment.NewLine },
-               StringSplitOptions.RemoveEmptyEntries);
-                args += tmp[1];
-                if (i + 1 < items.Length)
-                   args += ',';
-            }
-
-            foreach (var item in args)
-            {
-                MessageBox.Show(item.ToString());
-            }
-            return args;
         }
 
         public ChartValues<double> Series1 { get; set; }
@@ -115,20 +92,38 @@ namespace Optimalization_Methods.Menu
             DataContext = this;
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void BtnLoadFromText_Click(object sender, RoutedEventArgs e)
         {
-            switch (ComboBox.SelectedIndex)
+            try
             {
-                case 0:
-                    BtnPlot.IsEnabled = true;
-                    BtnLoad.Visibility = Visibility.Hidden;
-                    break;
-                case 1:
-                    BtnLoad.Visibility = Visibility.Visible;
-                    break;
-                default:
-                    break;
+                values = ReadValuesFromText();
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
+
+            BtnPlot.IsEnabled = true;
+            FileNameLbl.Foreground = Brushes.Green;
+            FileNameLbl.Content = "Points from input box";
+        }
+
+        private List<double> ReadValuesFromText()
+        {
+            List<double> myList = new List<double>();
+
+            String[] items = PointsBox.Text.
+               Split(new String[] { "/", Environment.NewLine },
+               StringSplitOptions.RemoveEmptyEntries);
+
+
+            for (int i = 0; i < items.Length; i++)
+            {
+                myList.Add(double.Parse(items[i]));
+            }
+
+            return myList;
         }
 
         private List<double> ReadValues()
@@ -170,8 +165,17 @@ namespace Optimalization_Methods.Menu
 
         private void BtnLoad_Click(object sender, RoutedEventArgs e)
         {
-            values = ReadValues();
-            //BtnPlot.IsEnabled = true;
+            try
+            {
+                values = ReadValues();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
+            FileNameLbl.Foreground = Brushes.Green;
+            BtnPlot.IsEnabled = true;
         }
     }
 }

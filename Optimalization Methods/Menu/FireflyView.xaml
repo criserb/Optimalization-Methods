@@ -10,7 +10,7 @@
       Title="Firefly">
 
     <Grid Background="#FF171717" >
-        <Grid x:Name="myGrid" Margin="352,10,22,145" Width="650" Background="#FFC5C5C5">
+        <Grid x:Name="myGrid" Margin="352,10,22,69" Width="650" Background="#FFC5C5C5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="467*"/>
                 <RowDefinition Height="133*"/>
@@ -46,25 +46,24 @@
         <TextBox x:Name="MinXBox" Margin="140,101,0,0" Text="0" Height="26"/>
         <TextBox x:Name="EpochsBox" Margin="140,70,0,0" Text="1000" Height="26"/>
         <TextBox x:Name="MaxXBox" Margin="140,132,0,0" Height="26" Text="3,2"/>
-        <Label x:Name="FileNameLbl" Content="None file in memory" Margin="30,10,0,0" Width="294"/>
+        <Label x:Name="FileNameLbl" Foreground="Red" Content="None file in memory" Margin="30,10,0,0" Width="294"/>
         <Label Content="number of fireflies:"  Margin="30,39,0,0"  Height="26"  Width="109"/>
         <Label Content="minX: "  Margin="30,101,0,0"  Height="26"  Width="109"/>
         <Label Content="max epochs:"  Margin="30,70,0,0"  Height="26"  Width="87"/>
         <Label Content="maxX:"  Margin="30,132,0,0"  Height="26" Width="109" />
         <Button x:Name="BtnPlot" Content="Plot"  Margin="245,257,0,0"  Width="102" Click="BtnPlot_Click" Height="24" Style="{StaticResource ButtonStyleGreen}" IsEnabled="False" />
         <Button x:Name="BtnLoad" Content="Load points from file"  Margin="30,286,0,0"  Width="205" Height="24" Style="{StaticResource ButtonStyleGreen}" Click="BtnLoad_Click" />
-        <Label Content="function equation: "  Margin="353,484,0,0"  Height="26" Width="108"/>
-        <TextBox x:Name="FunctionBox" Margin="465,484,0,0" Height="26"  Width="338" />
         <TextBox IsReadOnly="True" TextWrapping="Wrap" Height="68" Margin="30,184,0,0" Background="Transparent" Text="Note: 
                                 choose function or input your own function in function box" Width="205" AcceptsTab="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <ComboBox x:Name="ComboBox" HorizontalAlignment="Left" Height="24" Margin="30,257,0,0" VerticalAlignment="Top" Width="205" SelectedIndex="0" VerticalContentAlignment="Center" SelectionChanged="ComboBox_SelectionChanged">
-            <ComboBoxItem VerticalContentAlignment="Center">***Own function***</ComboBoxItem>
+        <ComboBox x:Name="ComboBox" HorizontalAlignment="Left" Height="24" Margin="30,257,0,0" VerticalAlignment="Top" Width="205" SelectedIndex="0" VerticalContentAlignment="Center">
             <ComboBoxItem VerticalContentAlignment="Center">Michalewicz function</ComboBoxItem>
+            <ComboBoxItem VerticalContentAlignment="Center">Rosenbrock function</ComboBoxItem>
+            <ComboBoxItem VerticalContentAlignment="Center">Ackley function</ComboBoxItem>
         </ComboBox>
-        <TextBox x:Name="DetailsBox" IsReadOnly="True" Cursor="Arrow" HorizontalAlignment="Left" Height="168" Margin="30,342,0,0" VerticalAlignment="Top" Width="294"/>
-        <TextBox x:Name="ArgumentsBox" VerticalScrollBarVisibility="Visible" HorizontalAlignment="Left" Height="52" Margin="808,484,0,0" VerticalAlignment="Top" Width="194"/>
-        <Label Content="Note: each argument separate with (&quot;,&quot;). For example:  (a=3,b=5,c=7)"  Margin="353,510,0,0"  Height="26" Width="450"/>
-        <Label Content="arguments list: "  Margin="808,458,0,0"  Height="26" Width="194"/>
+        <TextBox x:Name="DetailsBox" IsReadOnly="True" Cursor="Arrow" HorizontalAlignment="Left" Height="113" Margin="30,342,0,0" VerticalAlignment="Top" Width="294"/>
+        <TextBox x:Name="PointsBox" HorizontalAlignment="Left" Height="52" Margin="30,479,0,0" VerticalAlignment="Top" Width="294"/>
+        <Label Content="points input box (use / as a separator):"  Margin="30,455,0,0"  Height="26" Width="294"/>
+        <Button x:Name="BtnLoadFromText" Content="Load points from input box"  Margin="30,313,0,0"  Width="205" Height="24" Style="{StaticResource ButtonStyleGreen}" Click="BtnLoadFromText_Click" />
 
 
 
