@@ -84,6 +84,7 @@
     <Compile Include="Menu\FireflyView.xaml.cs">
       <DependentUpon>FireflyView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Menu\Functions.cs" />
     <Compile Include="Menu\Randomness\CauchyDistributionView.xaml.cs">
       <DependentUpon>CauchyDistributionView.xaml</DependentUpon>
     </Compile>

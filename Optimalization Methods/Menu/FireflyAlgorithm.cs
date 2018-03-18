@@ -8,17 +8,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using org.mariuszgromada.math.mxparser;
+using LiveCharts.Defaults;
 
 namespace Optimalization_Methods.Menu
 {
-    public enum FunctionChoice
-    {
-        Michalewicz,
-        Rosenbrock,
-        Ackley,
-        Rastrigin
-    }
-
     class FireflyAlgorithm
     {
         private double trueMin = 0;
@@ -26,7 +19,9 @@ namespace Optimalization_Methods.Menu
         private TextBox textBox;
         private int numFireflies, maxEpochs, dim, seed = 0;
         private double minX, maxX;
-        private List<double> points;
+        private List<ObservablePoint> pointsToPlot;
+
+        
 
         public FireflyAlgorithm(TextBox textBox, int numFireflies, int maxEpochs, double minX, double maxX, List<double> values)
         {
@@ -67,67 +62,6 @@ namespace Optimalization_Methods.Menu
             AddToTextBox(" ");
         }
 
-        //public PlotInfo OwnFunction(string equation, string args)
-        //{
-        //    //this.dim = args.Count;
-        //    Function function = new Function(equation);
-        //    string f = string.Empty;
-        //    for (int i = 0; i < equation.Length; i++)
-        //    {
-        //        if (equation[i] != ')')
-        //            f += equation[i];
-        //        else
-        //            break;
-        //    }
-
-        //    //string argsLine = "";
-        //    //for (int i = 0; i < args.Count; i++)
-        //    //{
-        //    //    argsLine += args[i];
-        //    //    if (i + 1 < args.Count)
-        //    //        argsLine += ',';
-        //    //}
-
-        //    MessageBox.Show("ArgsLine: " + args);
-
-        //    org.mariuszgromada.math.mxparser.Expression e1 =
-        //        new org.mariuszgromada.math.mxparser.Expression($"f({args.ToString()})", function);
-        //    double trueMin = e1.calculate();
-
-        //    AddToTextBox(trueMin.ToString());
-
-        //    PlotInfo plotInfo = new PlotInfo
-        //    {
-        //        SeriesIn = new List<double> { 1, 2 },
-        //        Error = 1,
-        //        Val = 1
-        //    };
-
-        //    //ShowDetails(bestPosition, trueMin, z, error);
-
-        //    return plotInfo;
-        //}
-
-        //public PlotInfo Demo()
-        //{
-        //    trueMin = Michalewicz(values.ToArray());
-
-        //    double[] bestPosition = Solve();
-        //    double z = Michalewicz(bestPosition);
-        //    double error = Error(bestPosition);
-
-        //    PlotInfo plotInfo = new PlotInfo
-        //    {
-        //        SeriesIn = points,
-        //        Error = error,
-        //        Val = z
-        //    };
-
-        //    ShowDetails(bestPosition, trueMin, z, error);
-
-        //    return plotInfo;
-        //}
-
         private void ShowDetails(double[] bestPosition, double trueMin, double z, double error)
         {
             textBox.Text = String.Empty;
@@ -138,40 +72,19 @@ namespace Optimalization_Methods.Menu
             AddToTextBox($"Error at best position: {Math.Round(error, 5)}");
         }
 
-        private delegate double FunctionDelegate(double[] val);
-
-        public PlotInfo Start(FunctionChoice functionChoice)
+        public PlotInfo Start(FunctionDelegate functionDelegate)
         {
-            FunctionDelegate myFunction = null;
+            FunctionDelegate myFunction = functionDelegate;
 
-            switch (functionChoice)
-            {
-                case FunctionChoice.Michalewicz:
-                    myFunction = Michalewicz;
-                    break;
-                case FunctionChoice.Rosenbrock:
-                    myFunction = Rosenbrock;
-                    break;
-                case FunctionChoice.Ackley:
-                    myFunction = Ackley;
-                    break;
-                case FunctionChoice.Rastrigin:
-                    myFunction = Rastrigin;
-                    break;
-                default:
-                    break;
-            }
-
-
-            trueMin = myFunction(values.ToArray());
+            trueMin = myFunction(values.ToArray(), dim);
 
             double[] bestPosition = Solve(myFunction);
-            double z = myFunction(bestPosition);
+            double z = myFunction(bestPosition, dim);
             double error = Error(bestPosition, myFunction);
 
             PlotInfo plotInfo = new PlotInfo
             {
-                SeriesIn = points,
+                SeriesIn = pointsToPlot,
                 Error = error,
                 Val = z
             };
@@ -183,12 +96,11 @@ namespace Optimalization_Methods.Menu
 
         double[] Solve(FunctionDelegate function)
         {
-            points = new List<double>();
+            pointsToPlot = new List<ObservablePoint>();
             Random rnd = new Random(seed);
             double B0 = 1.0;
             double g = 1.0;
             double a = 0.20;
-            // int displayInterval = maxEpochs / 10;
             double bestError = double.MaxValue;
             double[] bestPosition = new double[dim]; // Best ever
             Firefly[] swarm = new Firefly[numFireflies]; // All null
@@ -211,12 +123,6 @@ namespace Optimalization_Methods.Menu
             int epoch = 0;
             while (epoch < maxEpochs)
             {
-                //if (epoch % displayInterval == 0 && epoch < maxEpochs)
-                //{
-                //    string sEpoch = epoch.ToString().PadLeft(6);
-                //    AddToTextBoxWithoutNewLine("epoch = " + sEpoch);
-                //    AddToTextBox(" error = " + bestError.ToString("F14"));
-                //}
                 for (int i = 0; i < numFireflies; ++i) // Each firefly
                 {
                     for (int j = 0; j < numFireflies; ++j) // Others
@@ -250,7 +156,8 @@ namespace Optimalization_Methods.Menu
                     for (int k = 0; k < dim; ++k)
                         bestPosition[k] = swarm[0].position[k];
                 }
-                points.Add(function(bestPosition));
+                // add points to plot list
+                pointsToPlot.Add(new LiveCharts.Defaults.ObservablePoint(epoch + 1, function(bestPosition, dim)));
                 ++epoch;
             } // While
             return bestPosition;
@@ -266,69 +173,9 @@ namespace Optimalization_Methods.Menu
             return Math.Sqrt(ssd);
         }
 
-
-        public double Michalewicz(double[] xValues)
-        {
-            double result = 0.0;
-            for (int i = 0; i < xValues.Length; ++i)
-            {
-                double a = Math.Sin(xValues[i]);
-                double b = Math.Sin(((i + 1) * xValues[i] * xValues[i]) / Math.PI);
-                double c = Math.Pow(b, 20);
-                result += a * c;
-            }
-            return -1.0 * result;
-        }
-
-        public double Ackley(double[] xValues)
-        {
-            double result = 0.0, a = 0, b = 0, c, d;
-            for (int i = 0; i < xValues.Length; ++i)
-            {
-                a += Math.Pow(xValues[i], 2);
-            }
-            for (int i = 0; i < xValues.Length; ++i)
-            {
-                b += Math.Cos(2 * Math.PI * xValues[i]);
-            }
-            c = -20 * Math.Exp(0.2 * Math.Sqrt((1 / dim) * a));
-            d = -Math.Exp((1 / dim) * b) + 20 + Math.E;
-            result = c + d;
-            return result;
-        }
-
-        public double Rastrigin(double[] xValues)
-        {
-            double result = 0.0;
-            for (int i = 0; i < xValues.Length; ++i)
-            {
-                result += (Math.Pow( xValues[i],2) - Math.Cos(18*Math.PI*xValues[i]));
-            }return result;
-        }
-
-        public double Rosenbrock(double[] xValues)
-        {
-            double result = 0.0;
-            for (int i = 0; i < xValues.Length - 1; ++i)
-            {
-                double a = (1 - xValues[i]) * (1 - xValues[i]);
-                double b = 100 * Math.Pow((xValues[i + 1] - Math.Pow(xValues[i], 2)), 2);
-                result += a + b;
-            }
-            return result;
-        }
-
-
-
         double Error(double[] xValues, FunctionDelegate function)
         {
-            int dim = xValues.Length;
-            //double trueMin = 0.0;
-            //if (dim == 2)
-            //    trueMin = -1.8013; // Approx.
-            //else if (dim == 5)
-            //    trueMin = -4.687658; // Approx.
-            double calculated = function(xValues);
+            double calculated = function(xValues, dim);
             return (trueMin - calculated) * (trueMin - calculated);
         }
 
@@ -336,11 +183,11 @@ namespace Optimalization_Methods.Menu
 
     public class PlotInfo
     {
-        public List<double> SeriesIn { get; set; }
+        public List<ObservablePoint> SeriesIn { get; set; }
         public double Error { get; set; }
         public double Val { get; set; }
         public PlotInfo() { }
-        public PlotInfo(List<double> seriesIn, double error, double val)
+        public PlotInfo(List<ObservablePoint> seriesIn, double error, double val)
         {
             SeriesIn = seriesIn;
             Error = error;

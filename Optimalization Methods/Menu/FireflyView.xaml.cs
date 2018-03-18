@@ -55,34 +55,45 @@ namespace Optimalization_Methods.Menu
 
             PlotInfo plotInfo = new PlotInfo();
             myFirefly = new FireflyAlgorithm(DetailsBox, numFireflies, maxEpochs, minX, maxX, values);
+            FunctionDelegate functionDelegate = null;
             switch (ComboBox.SelectedIndex)
             {
                 case 0:
-                    plotInfo = myFirefly.Start(FunctionChoice.Michalewicz);
+                    functionDelegate = Functions.Michalewicz;
                     break;
                 case 1:
-                    plotInfo = myFirefly.Start(FunctionChoice.Rosenbrock);
+                    functionDelegate = Functions.Rosenbrock;
                     break;
                 case 2:
-                    plotInfo = myFirefly.Start(FunctionChoice.Ackley);
+                    functionDelegate = Functions.Ackley;
                     break;
                 case 3:
-                    plotInfo = myFirefly.Start(FunctionChoice.Rastrigin);
+                    functionDelegate = Functions.Rastrigin;
+                    break;
+                case 4:
+                    functionDelegate = Functions.Sphere;
+                    break;
+                case 5:
+                    functionDelegate = Functions.Levy;
+                    break;
+                case 6:
+                    functionDelegate = Functions.Griewank;
                     break;
                 default:
                     break;
             }
+            plotInfo = myFirefly.Start(functionDelegate);
             if (plotInfo.SeriesIn != null)
                 GeneratePlot(plotInfo);
         }
 
-        public ChartValues<double> Series1 { get; set; }
+        public ChartValues<ObservablePoint> Series1 { get; set; }
 
         private void GeneratePlot(PlotInfo plotInfo)
         {
             DataContext = null;
 
-            Series1 = new ChartValues<double>();
+            Series1 = new ChartValues<ObservablePoint>();
 
             for (int i = 0; i < plotInfo.SeriesIn.Count; i++)
             {
@@ -94,6 +105,8 @@ namespace Optimalization_Methods.Menu
 
         private void BtnLoadFromText_Click(object sender, RoutedEventArgs e)
         {
+            if (PointsBox.Text == string.Empty)
+                return;
             try
             {
                 values = ReadValuesFromText();
@@ -106,7 +119,7 @@ namespace Optimalization_Methods.Menu
 
             BtnPlot.IsEnabled = true;
             FileNameLbl.Foreground = Brushes.Green;
-            FileNameLbl.Content = "Points from input box";
+            FileNameLbl.Content = "Points from input box are in memory";
         }
 
         private List<double> ReadValuesFromText()
@@ -140,7 +153,7 @@ namespace Optimalization_Methods.Menu
 
             if (openFileDialog1.ShowDialog() == true)
             {
-                FileNameLbl.Content = "File in memory: " + openFileDialog1.SafeFileName;
+                FileNameLbl.Content = "Points from file: " + openFileDialog1.SafeFileName;
                 try
                 {
                     using (StreamReader sr = new StreamReader(openFileDialog1.FileName))
@@ -163,7 +176,7 @@ namespace Optimalization_Methods.Menu
             return myList;
         }
 
-        private void BtnLoad_Click(object sender, RoutedEventArgs e)
+        private void BtnLoadFromFile_Click(object sender, RoutedEventArgs e)
         {
             try
             {
