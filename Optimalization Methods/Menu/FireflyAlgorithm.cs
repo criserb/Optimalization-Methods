@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using org.mariuszgromada.math.mxparser;
 using LiveCharts.Defaults;
 
 namespace Optimalization_Methods.Menu
@@ -21,7 +20,7 @@ namespace Optimalization_Methods.Menu
         private double minX, maxX;
         private List<ObservablePoint> pointsToPlot;
 
-        
+
 
         public FireflyAlgorithm(TextBox textBox, int numFireflies, int maxEpochs, double minX, double maxX, List<double> values)
         {

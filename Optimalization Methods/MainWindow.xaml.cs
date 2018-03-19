@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -25,8 +26,46 @@ namespace Optimalization_Methods
         public MainWindow()
         {
             InitializeComponent();
-            myFrame.NavigationService.Navigate(new FireflyView());
-            myFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+            //myFrame.Content = new FireflyView();
+        }
+
+        private void ShowHideMenu(string storyboardhide, Button myButton, Button myButton2, StackPanel pnl)
+        {
+            Storyboard sb = Resources[storyboardhide] as Storyboard;
+            sb.Begin(pnl);
+
+            if (storyboardhide.Contains("Show"))
+            {
+                myButton.Visibility = System.Windows.Visibility.Visible;
+                myButton2.Visibility = System.Windows.Visibility.Hidden;
+            }
+            else if (storyboardhide.Contains("Hide"))
+            {
+                myButton.Visibility = System.Windows.Visibility.Hidden;
+                myButton2.Visibility = System.Windows.Visibility.Visible;
+            }
+
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            myFrame.Content = new LcgView();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            myFrame.Content = new CauchyView();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            myFrame.Content = new FireflyView();
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            myFrame.Content = new LcgView();
         }
     }
 }

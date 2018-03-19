@@ -53,7 +53,7 @@
         <Label Content="maxX:"  Margin="30,132,0,0"  Height="26" Width="109" />
         <Button x:Name="BtnPlot" Content="Plot"  Margin="245,257,0,0"  Width="102" Click="BtnPlot_Click" Height="24" Style="{StaticResource ButtonStyleGreen}" IsEnabled="False" />
         <Button x:Name="BtnLoad" Content="Load points from file"  Margin="30,286,0,0"  Width="205" Height="24" Style="{StaticResource ButtonStyleGreen}" Click="BtnLoadFromFile_Click" />
-        <TextBlock TextWrapping="Wrap" Height="68" Margin="30,172,790,360" Background="Transparent" Width="205" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" ><Run Foreground="Red" Text="&#x9;            "/><Run Foreground="Red" Text="Note:"/><LineBreak/><Run Text="  c"/><Run Text="hoose function or input your own "/><Run Text="          "/><Run Text="  "/><LineBreak/><Run Text="           "/><Run Text="function in function box"/></TextBlock>
+        <TextBlock TextWrapping="Wrap" Height="68" Margin="30,184,788,348" Background="Transparent" Width="206" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" ><Run Foreground="Red" Text="&#x9;            "/><Run Foreground="Red" Text="Note:"/><LineBreak/><Run Text="  c"/><Run Text="hoose function or input your own "/><Run Text="          "/><Run Text="  "/><LineBreak/><Run Text="           "/><Run Text="function in function box"/></TextBlock>
         <ComboBox x:Name="ComboBox" HorizontalAlignment="Left" Height="24" Margin="30,257,0,0" VerticalAlignment="Top" Width="205" SelectedIndex="0" VerticalContentAlignment="Center">
             <ComboBoxItem VerticalContentAlignment="Center">Michalewicz function</ComboBoxItem>
             <ComboBoxItem VerticalContentAlignment="Center">Rosenbrock function</ComboBoxItem>

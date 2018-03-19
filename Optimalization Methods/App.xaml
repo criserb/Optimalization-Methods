@@ -63,6 +63,32 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
+            
+            <Style x:Key="ButtonStyleMenu" TargetType="{x:Type Button}">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Cursor" Value="Arrow"/>
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="VerticalAlignment" Value="Top" />
+                <Setter Property="Template">
+
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Foreground" Value="Green"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            
             <Style TargetType="{x:Type TextBox}">
                 <Setter Property="Foreground" Value="White" />
                 <Setter Property="Background" Value="#FF211F1F" />
@@ -75,7 +101,6 @@
                 <Setter Property="FontSize" Value="14" />
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Cursor" Value="Pen"/>
                         <Setter Property="Background" Value="Green"/>
                         <Setter Property="BorderThickness" Value="0"/>
                     </Trigger>
@@ -89,6 +114,42 @@
                 <Setter Property="HorizontalAlignment" Value="Left" />
                 <Setter Property="VerticalAlignment" Value="Top" />
             </Style>
+            <Style x:Key="spSlideLeft" TargetType="Grid">
+
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                    </Trigger>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ThicknessAnimation Storyboard.TargetProperty="Margin" From="-200,0,0,0" To="0,0,0,0" DecelerationRatio=".9" Duration="0:0:0.8"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ThicknessAnimation Storyboard.TargetProperty="Margin" From="0,0,0,0" To="-200,0,0,0" DecelerationRatio=".9" Duration="0:0:0.5"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                </Style.Triggers>
+
+            </Style>
+
+            <Storyboard x:Key="sbShowLeftMenu">
+                <ThicknessAnimation Storyboard.TargetProperty="Margin" From="-150,0,0,0" To="0,0,0,0" DecelerationRatio=".9" Duration="0:0:1"/>
+            </Storyboard>
+            <Storyboard x:Key="sbHideLeftMenu">
+                <ThicknessAnimation Storyboard.TargetProperty="Margin" From="0,0,0,0" To="-150,0,0,0" DecelerationRatio=".9" Duration="0:0:1"/>
+            </Storyboard>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -5,7 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Optimalization_Methods"
         mc:Ignorable="d"
-        Title="Optimalization Methods" Height="600" Width="1024" Icon="Icon.ico" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="{x:Null}" Cursor="Arrow" Foreground="Black">
+        Title="Optimalization Methods" Height="630" Width="1084" Icon="Icon.ico" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="{x:Null}">
 
-    <Frame x:Name="myFrame" HorizontalAlignment="Left" Height="600" VerticalAlignment="Top" Width="1024" Margin="0,0,0,0"/>
+    <Grid>
+
+        <Grid Panel.ZIndex="10" Background="#2D3446" x:Name="GridPanel" Margin="-200,0,0,0" Style="{StaticResource spSlideLeft}" HorizontalAlignment="Left" Width="254">
+            <Image Source="Images/MenuImage.png" Width="172" Height="597" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="82,10,0,-6" />
+            <StackPanel Panel.ZIndex="2" x:Name="spLeft" Background="{Binding Background, ElementName=GridPanel}" HorizontalAlignment="Left" Width="200">
+
+                <DockPanel VerticalAlignment="Center" HorizontalAlignment="Right" Width="200">
+                    <Button Style="{StaticResource ButtonStyleMenu}" Click="Button_Click">Linear Congruential Generator</Button>
+
+                </DockPanel>
+
+                <DockPanel VerticalAlignment="Center" HorizontalAlignment="Right" Width="200" >
+                    <Button Style="{StaticResource ButtonStyleMenu}" Click="Button_Click_1">Cauchy Distribution</Button>
+
+                </DockPanel>
+                <DockPanel VerticalAlignment="Center" HorizontalAlignment="Right" Width="200" >
+                    <Button Style="{StaticResource ButtonStyleMenu}" Click="Button_Click_2">Firefly Algorithm</Button>
+
+                </DockPanel>
+                <DockPanel VerticalAlignment="Center" HorizontalAlignment="Right" Width="200" >
+                    <Button Style="{StaticResource ButtonStyleMenu}" Click="Button_Click_3">Particle Swarm Optimization</Button>
+
+                </DockPanel>
+                <DockPanel VerticalAlignment="Center" HorizontalAlignment="Right" Width="200" >
+
+                </DockPanel>
+
+            </StackPanel>
+        </Grid>
+        <Frame x:Name="myFrame" HorizontalAlignment="Left" Height="600" VerticalAlignment="Top" Width="1024" Margin="54,2,0,-1" NavigationUIVisibility="Hidden"/>
+
+    </Grid>
 </Window>

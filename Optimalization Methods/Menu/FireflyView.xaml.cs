@@ -16,8 +16,6 @@ using System.Windows.Shapes;
 using LiveCharts;
 using LiveCharts.Defaults;
 using Microsoft.Win32;
-using org.mariuszgromada.math.mxparser;
-using org.mariuszgromada.math.mxparser.regressiontesting;
 
 namespace Optimalization_Methods.Menu
 {
@@ -78,6 +76,9 @@ namespace Optimalization_Methods.Menu
                     break;
                 case 6:
                     functionDelegate = Functions.Griewank;
+                    break;
+                case 7:
+                    functionDelegate = Functions.Schwefel;
                     break;
                 default:
                     break;
@@ -154,6 +155,7 @@ namespace Optimalization_Methods.Menu
             if (openFileDialog1.ShowDialog() == true)
             {
                 FileNameLbl.Content = "Points from file: " + openFileDialog1.SafeFileName;
+                FileNameLbl.Foreground = Brushes.Green;
                 try
                 {
                     using (StreamReader sr = new StreamReader(openFileDialog1.FileName))
@@ -170,25 +172,19 @@ namespace Optimalization_Methods.Menu
                 }
                 catch (Exception ex)
                 {
+                    FileNameLbl.Content = "None points in memory";
+                    FileNameLbl.Foreground = Brushes.Red;
+                    BtnPlot.IsEnabled = false;
                     MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
                 }
+                BtnPlot.IsEnabled = true;
             }
             return myList;
         }
 
         private void BtnLoadFromFile_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
                 values = ReadValues();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
-            FileNameLbl.Foreground = Brushes.Green;
-            BtnPlot.IsEnabled = true;
         }
     }
 }

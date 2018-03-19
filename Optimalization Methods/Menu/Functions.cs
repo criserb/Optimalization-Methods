@@ -10,7 +10,8 @@ namespace Optimalization_Methods.Menu
         Rastrigin,
         Sphere,
         Levy,
-        Griewank
+        Griewank,
+        Schwefel
     }
 
     public delegate double FunctionDelegate(double[] val, int dim);
@@ -111,7 +112,7 @@ namespace Optimalization_Methods.Menu
 
         public static double Schwefel(double[] xValues, int dim)
         {
-            double a = 0.0, b = 0.0, result = 0.0;
+            double a = 0.0, result = 0.0;
             for (int i = 0; i < xValues.Length; ++i)
             {
                 a += (xValues[i] * Math.Sin(Math.Sqrt(Math.Abs(xValues[i]))));
