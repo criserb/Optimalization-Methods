@@ -33,7 +33,7 @@
     Each data row contains a name, and value. The row also contains a 
     type or mimetype. Type corresponds to a .NET class that support 
     text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+    Classes that don't support this are serialized and stoOrangeRed with the 
     mimetype set.
     
     The mimetype is used for serialized objects, and tells the 
@@ -95,7 +95,7 @@
               <xsd:sequence>
                 <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="requiOrangeRed" />
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>

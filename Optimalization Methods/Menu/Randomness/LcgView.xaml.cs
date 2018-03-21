@@ -48,7 +48,7 @@ namespace Optimalization_Methods.Menu.Randomness
             _loop = true;
             _seed = 0;
             _counter = 1;
-            SettingTiles();
+            ColourFiles();
             if (!long.TryParse(MBox.Text, out _m) || !long.TryParse(ABox.Text, out _a) || !long.TryParse(CBox.Text, out _c))
             {
                 MessageBox.Show("Wrong input format");
@@ -57,7 +57,7 @@ namespace Optimalization_Methods.Menu.Randomness
             long.TryParse(SeedBox.Text, out _seed);
             // if we set seed as 0 it will be given by actual second
             _last = (_seed == 0) ? DateTime.Now.Ticks % _m : _seed;
-            RandomWalk randomWalker = new RandomWalk(myGrid, _myTiles);
+            RandomWalk randomWalker = new RandomWalk(_myTiles);
 
             BtnStart.IsEnabled = false;
             BtnStop.IsEnabled = true;
@@ -77,7 +77,7 @@ namespace Optimalization_Methods.Menu.Randomness
             BtnStop.IsEnabled = false;
         }
 
-        private void SettingTiles()
+        private void ColourFiles()
         {
             foreach (var item in _myTiles)
             {
@@ -88,9 +88,9 @@ namespace Optimalization_Methods.Menu.Randomness
         private List<Rectangle> InitializeGrid()
         {
             List<Rectangle> myTiles = new List<Rectangle>();
-            for (int i = 0; i < myGrid.Height / 10; i++)
+            for (int i = 0; i < myGridTiles.Height / 10; i++)
             {
-                for (int j = 0; j < myGrid.Width / 10; j++)
+                for (int j = 0; j < myGridTiles.Width / 10; j++)
                 {
                     myTiles.Add(new Rectangle
                     {
@@ -102,7 +102,7 @@ namespace Optimalization_Methods.Menu.Randomness
             }
             foreach (var item in myTiles)
             {
-                myGrid.Children.Add(item);
+                myGridTiles.Children.Add(item);
             }
             return myTiles;
         }

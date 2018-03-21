@@ -10,20 +10,20 @@
       Title="Firefly">
 
     <Grid Background="#FF171717" >
-        <Grid x:Name="myGrid" Margin="352,10,22,69" Width="650" Background="#FFC5C5C5">
+        <Grid x:Name="myGrid" Margin="352,10,22,69" Height="500" Width="650" Background="#FFC5C5C5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="467*"/>
                 <RowDefinition Height="133*"/>
             </Grid.RowDefinitions>
-            <Label Content="Firefly Algorithm"  Height="51" Width="650" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24" Foreground="#FF686868" Margin="0,-10,0,0" RenderTransformOrigin="0.5,0.5" />
+            <Label Content="Firefly Algorithm"  Height="41" Width="650" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24" Foreground="#FF686868" RenderTransformOrigin="0.5,0.5" />
             <lvc:CartesianChart x:Name="myChart" LegendLocation="Bottom" Width="Auto" Height="Auto" Foreground="#FF272727" BorderBrush="#FF272727" ScrollBarFill="#1EFFFFFF" Margin="0,41,0,0" Grid.RowSpan="2" >
                 <lvc:CartesianChart.Series>
                     <lvc:LineSeries Title="Function value" Values="{Binding Series1}" LineSmoothness="1" StrokeThickness="1" 
                                 DataLabels="False" FontSize="20" Foreground="DarkGray"
-                                Stroke="Green" Fill="Transparent" PointGeometrySize="2" />
+                                Stroke="{StaticResource Color2}" Fill="Transparent" PointGeometrySize="2" />
                 </lvc:CartesianChart.Series>
                 <lvc:CartesianChart.ChartLegend>
-                    <lvc:DefaultLegend BulletSize="10" Background="Red"/>
+                    <lvc:DefaultLegend BulletSize="10" Background="OrangeRed"/>
                 </lvc:CartesianChart.ChartLegend>
                 <lvc:CartesianChart.AxisX>
                     <lvc:Axis Foreground="Gray" Title="Epoch">
@@ -41,20 +41,21 @@
                 </lvc:CartesianChart.AxisY>
             </lvc:CartesianChart>
         </Grid>
-        <TextBox x:Name="myTextBox" TextWrapping="Wrap" HorizontalAlignment="Left" Height="600"  VerticalAlignment="Top" Width="416" Margin="1007,10,-399,-10"/>
-        <TextBox x:Name="FirefliesBox" Margin="140,39,0,0" Text="40" Height="26"/>
+        <TextBox x:Name="FirefliesBox" Margin="140,39,0,0" Text="{Binding Value, ElementName=slider}" Height="26"/>
         <TextBox x:Name="MinXBox" Margin="140,101,0,0" Text="0" Height="26"/>
-        <TextBox x:Name="EpochsBox" Margin="140,70,0,0" Text="1000" Height="26"/>
+        <TextBox x:Name="EpochsBox" Margin="140,70,0,0" Text="{Binding Value, ElementName=slider2}" Height="26"/>
         <TextBox x:Name="MaxXBox" Margin="140,132,0,0" Height="26" Text="3,2"/>
-        <Label x:Name="FileNameLbl" Foreground="Red" Content="None points in memory" Margin="30,10,0,0" Width="294"/>
+        <Label x:Name="FileNameLbl" Foreground="{StaticResource Color2}" Content="None points in memory" Margin="30,10,0,0" Width="294"/>
         <Label Content="number of fireflies:"  Margin="30,39,0,0"  Height="26"  Width="109"/>
         <Label Content="minX: "  Margin="30,101,0,0"  Height="26"  Width="109"/>
-        <Label Content="max epochs:"  Margin="30,70,0,0"  Height="26"  Width="87"/>
+        <Label Content="max epochs:"  Margin="30,70,0,0" Height="26"  Width="87"/>
         <Label Content="maxX:"  Margin="30,132,0,0"  Height="26" Width="109" />
-        <Button x:Name="BtnPlot" Content="Plot"  Margin="245,257,0,0"  Width="102" Click="BtnPlot_Click" Height="24" Style="{StaticResource ButtonStyleGreen}" IsEnabled="False" />
-        <Button x:Name="BtnLoad" Content="Load points from file"  Margin="30,286,0,0"  Width="205" Height="24" Style="{StaticResource ButtonStyleGreen}" Click="BtnLoadFromFile_Click" />
-        <TextBlock TextWrapping="Wrap" Height="68" Margin="30,184,788,348" Background="Transparent" Width="206" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" ><Run Foreground="Red" Text="&#x9;            "/><Run Foreground="Red" Text="Note:"/><LineBreak/><Run Text="  c"/><Run Text="hoose function or input your own "/><Run Text="          "/><Run Text="  "/><LineBreak/><Run Text="           "/><Run Text="function in function box"/></TextBlock>
-        <ComboBox x:Name="ComboBox" HorizontalAlignment="Left" Height="24" Margin="30,257,0,0" VerticalAlignment="Top" Width="205" SelectedIndex="0" VerticalContentAlignment="Center">
+        <Button x:Name="BtnPlot" Content="Plot"  Margin="245,257,0,0"  Width="102" Click="BtnPlot_Click" Height="24" Style="{StaticResource ButtonStyleStart}" IsEnabled="False" />
+        <Button x:Name="BtnLoad" Content="Load points from file"  Margin="30,281,0,0"  Width="205" Height="24" Style="{StaticResource ButtonStyleStart}" Click="BtnLoadFromFile_Click" />
+        <TextBlock TextWrapping="Wrap" Height="68" Margin="30,184,788,348" Background="Transparent" Width="206" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" >
+            <Run Foreground="{StaticResource Color1}" Text="&#x9;            "/><Run Foreground="#16a085" Text="Note:"/><LineBreak/><Run Text="  c"/><Run Text="hoose function or input your own "/><Run Text="          "/><Run Text="  "/><LineBreak/><Run Text="           "/><Run Text="function in function box"/></TextBlock>
+        <ComboBox Background="Transparent" x:Name="ComboBox" HorizontalAlignment="Left" Height="24" Margin="30,257,0,0" VerticalAlignment="Top" Width="205" SelectedIndex="0" VerticalContentAlignment="Center"
+                  Foreground="Black" >
             <ComboBoxItem VerticalContentAlignment="Center">Michalewicz function</ComboBoxItem>
             <ComboBoxItem VerticalContentAlignment="Center">Rosenbrock function</ComboBoxItem>
             <ComboBoxItem VerticalContentAlignment="Center">Ackley function</ComboBoxItem>
@@ -63,18 +64,18 @@
             <ComboBoxItem VerticalContentAlignment="Center">Levy function</ComboBoxItem>
             <ComboBoxItem VerticalContentAlignment="Center">Griewank function</ComboBoxItem>
         </ComboBox>
-        <TextBox x:Name="DetailsBox" IsReadOnly="True" Cursor="Arrow" HorizontalAlignment="Left" Height="113" Margin="30,342,0,0" VerticalAlignment="Top" Width="294"/>
-        <TextBox x:Name="PointsBox" HorizontalAlignment="Left" Height="52" Margin="30,479,0,0" VerticalAlignment="Top" Width="294"/>
-        <TextBlock Margin="30,454,700,120" Foreground="White" Height="26" Width="294">
+        <TextBox x:Name="DetailsBox" IsReadOnly="True" Cursor="Arrow" HorizontalAlignment="Left" Height="113" Margin="30,334,0,0" VerticalAlignment="Top" Width="294"/>
+        <TextBox x:Name="PointsBox" HorizontalAlignment="Left" Height="51" Margin="30,469,0,0" VerticalAlignment="Top" Width="294"/>
+        <TextBlock Margin="30,447,700,131" Foreground="White" Width="294">
             <Run FontSize="12" >points input box ( </Run>
-            <Run FontSize="14" FontStyle="Italic" Foreground="Green" > please use </Run>
-            <Run FontSize="14" FontStyle="Italic" Foreground="Red" > / </Run>
-            <Run FontSize="14" FontStyle="Italic" Foreground="Green" > as a separator </Run>           
+            <Run FontSize="14" FontStyle="Italic" Foreground="{StaticResource Color1}" > please use </Run>
+            <Run FontSize="14" FontStyle="Italic" Foreground="{StaticResource Color3}" > / </Run>
+            <Run FontSize="14" FontStyle="Italic" Foreground="{StaticResource Color1}" > as a separator </Run>           
             <Run FontSize="12" > ): </Run>
         </TextBlock>
-        <Button x:Name="BtnLoadFromText" Content="Load points from input box"  Margin="30,313,0,0"  Width="205" Height="24" Style="{StaticResource ButtonStyleGreen}" Click="BtnLoadFromText_Click" />
-
-
+        <Button x:Name="BtnLoadFromText" Content="Load points from input box"  Margin="30,305,0,0"  Width="205" Height="24" Style="{StaticResource ButtonStyleStart}" Click="BtnLoadFromText_Click" />
+        <Slider x:Name="slider" IsSnapToTickEnabled="True" HorizontalAlignment="Left" Margin="245,44,0,0" VerticalAlignment="Top" Width="102" Maximum="45" Minimum="15" Value="{Binding Text, ElementName=FirefliesBox}"/>
+        <Slider x:Name="slider2" IsSnapToTickEnabled="True" HorizontalAlignment="Left" Margin="245,74,0,0" VerticalAlignment="Top" Width="102" Maximum="3000" Minimum="10" Value="{Binding Text, ElementName=EpochsBox}" TickFrequency="10"/>
 
     </Grid>
 </Page>

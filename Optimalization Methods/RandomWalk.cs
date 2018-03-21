@@ -17,25 +17,25 @@ namespace Optimalization_Methods
 {
     class RandomWalk
     {
-        private Grid _myGrid;
-        private List<Rectangle> _myTiles;
+        private Grid myGrid;
+        private List<Rectangle> myTiles;
+        private SolidColorBrush newBrush;
 
-        public RandomWalk(Grid myGrid, List<Rectangle> myTiles)
+        public RandomWalk(List<Rectangle> myTiles)
         {
-            this._myGrid = myGrid;
-            _myTiles = myTiles;
+            this.myTiles = myTiles;
         }
 
         public void Update(long randomNumber)
         {
-                SolidColorBrush newBrush = (SolidColorBrush)_myTiles[Convert.ToInt32(randomNumber % _myTiles.Count)].Fill;
+                newBrush = (SolidColorBrush)myTiles[Convert.ToInt32(randomNumber % myTiles.Count)].Fill;
                 int R = newBrush.Color.R;
-                R = (R + 75) % 255;
+                R = (R + 22) % 255;
                 int G = newBrush.Color.G;
-                G = (G - 35) % 255;
+                G = (G + 160) % 255;
                 int B = newBrush.Color.B;
-                B = (B + 15) % 255;
-                _myTiles[Convert.ToInt32(randomNumber % _myTiles.Count)].Fill = new SolidColorBrush(Color.FromRgb((byte)R, (byte)G, (byte)B)); 
+                B = (B + 133) % 255;
+                myTiles[Convert.ToInt32(randomNumber % myTiles.Count)].Fill = new SolidColorBrush(Color.FromRgb((byte)R, (byte)G, (byte)B)); 
         }
     }
 }

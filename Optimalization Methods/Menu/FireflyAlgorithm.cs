@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using LiveCharts.Defaults;
+using System.Threading;
 
 namespace Optimalization_Methods.Menu
 {
-    class FireflyAlgorithm
+    public class FireflyAlgorithm
     {
         private double trueMin = 0;
         private List<double> values;
@@ -33,44 +34,6 @@ namespace Optimalization_Methods.Menu
             this.dim = values.Count;
         }
 
-        public FireflyAlgorithm(TextBox textBox, int numFireflies, int maxEpochs, double minX, double maxX)
-        {
-            this.textBox = textBox;
-            this.maxEpochs = maxEpochs;
-            this.numFireflies = numFireflies;
-            this.minX = minX;
-            this.maxX = maxX;
-        }
-
-        void AddToTextBox(string s)
-        {
-            textBox.Text += s + '\n';
-        }
-
-        void AddToTextBoxWithoutNewLine(string s)
-        {
-            textBox.Text += s;
-        }
-
-        void ShowVector(double[] v, int dec, bool nl)
-        {
-            for (int i = 0; i < v.Length; ++i)
-                AddToTextBoxWithoutNewLine(v[i].ToString("F" + dec) + " ");
-            if (nl == true)
-                AddToTextBox(" ");
-            AddToTextBox(" ");
-        }
-
-        private void ShowDetails(double[] bestPosition, double trueMin, double z, double error)
-        {
-            textBox.Text = String.Empty;
-            AddToTextBox($"True min at: {Math.Round(trueMin, 5)}");
-            AddToTextBox($"Best solution found:");
-            ShowVector(bestPosition, 4, false);
-            AddToTextBox($"Value of function at best position: {Math.Round(z, 5)}");
-            AddToTextBox($"Error at best position: {Math.Round(error, 5)}");
-        }
-
         public PlotInfo Start(FunctionDelegate functionDelegate)
         {
             FunctionDelegate myFunction = functionDelegate;
@@ -85,15 +48,17 @@ namespace Optimalization_Methods.Menu
             {
                 SeriesIn = pointsToPlot,
                 Error = error,
-                Val = z
+                Val = z,
+                TrueMin = trueMin,
+                BestPostion = bestPosition
             };
 
-            ShowDetails(bestPosition, trueMin, z, error);
+            // ShowDetails(bestPosition, trueMin, z, error);
 
             return plotInfo;
         }
 
-        double[] Solve(FunctionDelegate function)
+        private double[] Solve(FunctionDelegate function)
         {
             pointsToPlot = new List<ObservablePoint>();
             Random rnd = new Random(seed);
@@ -156,7 +121,7 @@ namespace Optimalization_Methods.Menu
                         bestPosition[k] = swarm[0].position[k];
                 }
                 // add points to plot list
-                pointsToPlot.Add(new LiveCharts.Defaults.ObservablePoint(epoch + 1, function(bestPosition, dim)));
+                pointsToPlot.Add(new ObservablePoint(epoch + 1, function(bestPosition, dim)));
                 ++epoch;
             } // While
             return bestPosition;
@@ -166,7 +131,7 @@ namespace Optimalization_Methods.Menu
 
         double Distance(double[] posA, double[] posB)
         {
-            double ssd = 0.0; // sum squared diffrences
+            double ssd = 0.0; // sum squaOrangeRed diffrences
             for (int i = 0; i < posA.Length; ++i)
                 ssd += (posA[i] - posB[i]) * (posA[i] - posB[i]);
             return Math.Sqrt(ssd);
@@ -185,12 +150,16 @@ namespace Optimalization_Methods.Menu
         public List<ObservablePoint> SeriesIn { get; set; }
         public double Error { get; set; }
         public double Val { get; set; }
+        public double TrueMin { get; set; }
+        public double[] BestPostion { get; set; }
         public PlotInfo() { }
-        public PlotInfo(List<ObservablePoint> seriesIn, double error, double val)
+        public PlotInfo(List<ObservablePoint> seriesIn, double error, double val, double trueMin, double[] bestPostion)
         {
             SeriesIn = seriesIn;
             Error = error;
             Val = val;
+            TrueMin = trueMin;
+            BestPostion = bestPostion;
         }
     }
 

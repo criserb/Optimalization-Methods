@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Optimalization_Methods"
         mc:Ignorable="d"
-        Title="Optimalization Methods" Height="630" Width="1084" Icon="Icon.ico" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="{x:Null}">
+        Title="Optimalization Methods" Height="630" Width="1084" Icon="Images/Icon.ico" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="{x:Null}">
 
-    <Grid>
+    <Grid Background="#FF171717" x:Name="myGrid">
 
-        <Grid Panel.ZIndex="10" Background="#2D3446" x:Name="GridPanel" Margin="-200,0,0,0" Style="{StaticResource spSlideLeft}" HorizontalAlignment="Left" Width="254">
-            <Image Source="Images/MenuImage.png" Width="172" Height="597" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="82,10,0,-6" />
-            <StackPanel Panel.ZIndex="2" x:Name="spLeft" Background="{Binding Background, ElementName=GridPanel}" HorizontalAlignment="Left" Width="200">
+        <Grid Panel.ZIndex="10" Background="#2980b9" x:Name="GridPanel" Margin="-200,0,0,0" Style="{StaticResource spSlideLeft}" HorizontalAlignment="Left" Width="254">
+            <Image Source="Images/MenuImage.png" Width="189" Height="597" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="65,10,0,-6" />
+            <StackPanel Panel.ZIndex="2" x:Name="spLeft" Background="#FF2B2B2B" HorizontalAlignment="Left" Width="200">
 
                 <DockPanel VerticalAlignment="Center" HorizontalAlignment="Right" Width="200">
                     <Button Style="{StaticResource ButtonStyleMenu}" Click="Button_Click">Linear Congruential Generator</Button>
@@ -37,6 +37,7 @@
             </StackPanel>
         </Grid>
         <Frame x:Name="myFrame" HorizontalAlignment="Left" Height="600" VerticalAlignment="Top" Width="1024" Margin="54,2,0,-1" NavigationUIVisibility="Hidden"/>
-
+        <Image Panel.ZIndex="1" x:Name="IconImage" Source="Images/Icon.png" Height="390" VerticalAlignment="Center" Margin="321,121,261,90" Opacity="0.2"/>
+        <TextBlock HorizontalAlignment="Left" Margin="690,544,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="348" Foreground="White" FontSize="14" Opacity="0.05"><Run Text="© 2018"/><Run Text=" "/><Run Text="KRZYSZTOF BĄDKOWSKI "/><Run Text="ALL RIGHTS RESERVED"/></TextBlock>
     </Grid>
 </Window>

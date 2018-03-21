@@ -12,16 +12,16 @@
         <TextBox x:Name="MBox" Margin="140,144,0,0" Text="4294967296" Height="26"/>
         <TextBox x:Name="ABox" Margin="140,172,0,0" Text="843314861" Height="26"/>
         <TextBox x:Name="CBox" Margin="140,200,0,0" Text="453816693" Height="26"/>
-        <TextBox x:Name="SeedBox" Margin="139,228,0,0" Height="26"/>
+        <TextBox x:Name="SeedBox" Margin="140,228,0,0" Height="26" Width="95"/>
         <Label Content="m:"  Margin="97,144,0,0"  Height="24"  Width="33"/>
         <Label Content="a:"  Margin="97,174,0,0"  Height="24"  Width="33"/>
         <Label Content="c:"  Margin="97,200,0,0"  Height="24"  Width="33"/>
         <Label Content="seed*:"  Margin="97,228,0,0"  Height="24" />
-        <Grid x:Name="myGrid"  Height="500" Margin="329,38,0,0"  Width="650" Background="White"/>
-        <Button x:Name="BtnStart" Content="Start"  Margin="52,400,0,0"  Width="102" Click="BtnStart_Click" Height="24" Style="{StaticResource ButtonStyleGreen}" />
-        <Button x:Name="BtnStop" Content="Stop"  Margin="164,400,0,0"  Width="102" Click="BtnStop_Click" Height="24" Style="{StaticResource ButtonStyleRed}" IsEnabled="False"/>
+        <Grid x:Name="myGridTiles"  Height="500" Margin="346,43,28,57"  Width="650" Background="White"/>
+        <Button x:Name="BtnStart" Content="Start"  Margin="52,400,0,0"  Width="102" Click="BtnStart_Click" Height="24" Style="{StaticResource ButtonStyleStart}" />
+        <Button x:Name="BtnStop" Content="Stop"  Margin="164,400,0,0"  Width="102" Click="BtnStop_Click" Height="24" Style="{StaticResource ButtonStyleStop}" IsEnabled="False"/>
         <Label x:Name="loopNumber" Content="{ Binding counter }"  Margin="144,324,0,0"  Width="122" />
         <Label Content="Loop number: "  Margin="52,324,0,0"  />
-        <Label Content="* if we set seed as empty it will be given by actual second"  Margin="10,562,0,0"  Height="28" />
+        <Label Content="* if we set seed as empty it will be given by actual second"  Margin="10,524,0,0"  Height="28" VerticalContentAlignment="Center" />
     </Grid>
 </Page>

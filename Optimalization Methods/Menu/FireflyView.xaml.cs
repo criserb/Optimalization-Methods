@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,6 +33,7 @@ namespace Optimalization_Methods.Menu
         public FireflyView()
         {
             InitializeComponent();
+
         }
 
         private bool ValidateData()
@@ -47,7 +49,7 @@ namespace Optimalization_Methods.Menu
             return true;
         }
 
-        private void BtnPlot_Click(object sender, RoutedEventArgs e)
+        private async void BtnPlot_Click(object sender, RoutedEventArgs e)
         {
             if (!ValidateData()) return;
 
@@ -83,14 +85,48 @@ namespace Optimalization_Methods.Menu
                 default:
                     break;
             }
-            plotInfo = myFirefly.Start(functionDelegate);
-            if (plotInfo.SeriesIn != null)
-                GeneratePlot(plotInfo);
+            plotInfo = await CalculatePlotInfo(myFirefly, functionDelegate);
+            ShowDetails(plotInfo.BestPostion, plotInfo.TrueMin, plotInfo.Val, plotInfo.Error);
+            GeneratePlot(plotInfo);
+        }
+
+        public Task<PlotInfo> CalculatePlotInfo(FireflyAlgorithm myFirefly, FunctionDelegate functionDelegate)
+        {
+            return Task.Factory.StartNew(() => myFirefly.Start(functionDelegate));
+        }
+
+        void ShowVector(double[] v, int dec, bool nl)
+        {
+            for (int i = 0; i < v.Length; ++i)
+                AddToTextBoxWithoutNewLine(v[i].ToString("F" + dec) + " ");
+            if (nl == true)
+                AddToTextBox(" ");
+            AddToTextBox(" ");
+        }
+
+        private void ShowDetails(double[] bestPosition, double trueMin, double z, double error)
+        {
+            DetailsBox.Text = String.Empty;
+            AddToTextBox($"True min at: {Math.Round(trueMin, 5)}");
+            AddToTextBox($"Best solution found:");
+            ShowVector(bestPosition, 4, false);
+            AddToTextBox($"Value of function at best position: {Math.Round(z, 5)}");
+            AddToTextBox($"Error at best position: {Math.Round(error, 5)}");
+        }
+
+        void AddToTextBox(string s)
+        {
+            DetailsBox.Text += s + '\n';
+        }
+
+        void AddToTextBoxWithoutNewLine(string s)
+        {
+            DetailsBox.Text += s;
         }
 
         public ChartValues<ObservablePoint> Series1 { get; set; }
 
-        private void GeneratePlot(PlotInfo plotInfo)
+        public void GeneratePlot(PlotInfo plotInfo)
         {
             DataContext = null;
 
@@ -107,7 +143,11 @@ namespace Optimalization_Methods.Menu
         private void BtnLoadFromText_Click(object sender, RoutedEventArgs e)
         {
             if (PointsBox.Text == string.Empty)
+            {
+                FileNameLbl.Foreground = (Brush)Application.Current.Resources["Color2"];
+                FileNameLbl.Content = "None points in memory";
                 return;
+            }
             try
             {
                 values = ReadValuesFromText();
@@ -119,7 +159,7 @@ namespace Optimalization_Methods.Menu
             }
 
             BtnPlot.IsEnabled = true;
-            FileNameLbl.Foreground = Brushes.Green;
+            FileNameLbl.Foreground = (Brush)Application.Current.Resources["Color1"];
             FileNameLbl.Content = "Points from input box are in memory";
         }
 
@@ -155,7 +195,7 @@ namespace Optimalization_Methods.Menu
             if (openFileDialog1.ShowDialog() == true)
             {
                 FileNameLbl.Content = "Points from file: " + openFileDialog1.SafeFileName;
-                FileNameLbl.Foreground = Brushes.Green;
+                FileNameLbl.Foreground = (Brush)Application.Current.Resources["Color1"];
                 try
                 {
                     using (StreamReader sr = new StreamReader(openFileDialog1.FileName))
@@ -173,7 +213,7 @@ namespace Optimalization_Methods.Menu
                 catch (Exception ex)
                 {
                     FileNameLbl.Content = "None points in memory";
-                    FileNameLbl.Foreground = Brushes.Red;
+                    FileNameLbl.Foreground = (Brush)Application.Current.Resources["Color2"];
                     BtnPlot.IsEnabled = false;
                     MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
                 }
@@ -184,7 +224,7 @@ namespace Optimalization_Methods.Menu
 
         private void BtnLoadFromFile_Click(object sender, RoutedEventArgs e)
         {
-                values = ReadValues();
+            values = ReadValues();
         }
     }
 }

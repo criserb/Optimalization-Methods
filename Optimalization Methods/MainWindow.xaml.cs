@@ -26,7 +26,6 @@ namespace Optimalization_Methods
         public MainWindow()
         {
             InitializeComponent();
-            //myFrame.Content = new FireflyView();
         }
 
         private void ShowHideMenu(string storyboardhide, Button myButton, Button myButton2, StackPanel pnl)
@@ -44,28 +43,30 @@ namespace Optimalization_Methods
                 myButton.Visibility = System.Windows.Visibility.Hidden;
                 myButton2.Visibility = System.Windows.Visibility.Visible;
             }
-
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             myFrame.Content = new LcgView();
+            IconImage.Visibility = Visibility.Hidden;
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             myFrame.Content = new CauchyView();
+            IconImage.Visibility = Visibility.Hidden;
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             myFrame.Content = new FireflyView();
+            IconImage.Visibility = Visibility.Hidden;
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             myFrame.Content = new LcgView();
+            IconImage.Visibility = Visibility.Hidden;
         }
     }
 }
