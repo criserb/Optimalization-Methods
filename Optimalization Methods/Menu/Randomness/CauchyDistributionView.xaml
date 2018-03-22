@@ -19,7 +19,7 @@
                 <lvc:CartesianChart.Series>
                     <lvc:LineSeries Title="CauchyChart" Values="{Binding Pdf}" LineSmoothness="1" StrokeThickness="1" 
                                 DataLabels="False" FontSize="20" Foreground="DarkGray"
-                                Stroke="{StaticResource Color1}" Fill="Transparent" PointGeometrySize="2" />
+                                Stroke="{StaticResource GreenSea}" Fill="Transparent" PointGeometrySize="2" />
                 </lvc:CartesianChart.Series>
                 <lvc:CartesianChart.ChartLegend>
                     <lvc:DefaultLegend BulletSize="10" Background="OrangeRed"/>

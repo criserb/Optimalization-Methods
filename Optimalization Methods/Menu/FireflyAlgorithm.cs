@@ -19,7 +19,7 @@ namespace Optimalization_Methods.Menu
         private TextBox textBox;
         private int numFireflies, maxEpochs, dim, seed = 0;
         private double minX, maxX;
-        private List<ObservablePoint> pointsToPlot;
+        private Queue<ObservablePoint> pointsToPlot;
 
 
 
@@ -60,7 +60,7 @@ namespace Optimalization_Methods.Menu
 
         private double[] Solve(FunctionDelegate function)
         {
-            pointsToPlot = new List<ObservablePoint>();
+            pointsToPlot = new Queue<ObservablePoint>();
             Random rnd = new Random(seed);
             double B0 = 1.0;
             double g = 1.0;
@@ -121,9 +121,9 @@ namespace Optimalization_Methods.Menu
                         bestPosition[k] = swarm[0].position[k];
                 }
                 // add points to plot list
-                pointsToPlot.Add(new ObservablePoint(epoch + 1, function(bestPosition, dim)));
+                pointsToPlot.Enqueue(new ObservablePoint(epoch + 1, function(bestPosition, dim)));
                 ++epoch;
-            } // While
+            } // While            
             return bestPosition;
         } // Solve
 
@@ -147,13 +147,13 @@ namespace Optimalization_Methods.Menu
 
     public class PlotInfo
     {
-        public List<ObservablePoint> SeriesIn { get; set; }
+        public Queue<ObservablePoint> SeriesIn { get; set; }
         public double Error { get; set; }
         public double Val { get; set; }
         public double TrueMin { get; set; }
         public double[] BestPostion { get; set; }
         public PlotInfo() { }
-        public PlotInfo(List<ObservablePoint> seriesIn, double error, double val, double trueMin, double[] bestPostion)
+        public PlotInfo(Queue<ObservablePoint> seriesIn, double error, double val, double trueMin, double[] bestPostion)
         {
             SeriesIn = seriesIn;
             Error = error;

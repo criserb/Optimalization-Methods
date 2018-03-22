@@ -17,7 +17,6 @@ namespace Optimalization_Methods
 {
     class RandomWalk
     {
-        private Grid myGrid;
         private List<Rectangle> myTiles;
         private SolidColorBrush newBrush;
 

@@ -114,7 +114,7 @@ namespace Optimalization_Methods.Menu
             AddToTextBox($"Error at best position: {Math.Round(error, 5)}");
         }
 
-        void AddToTextBox(string s)
+        public void AddToTextBox(string s)
         {
             DetailsBox.Text += s + '\n';
         }
@@ -126,25 +126,32 @@ namespace Optimalization_Methods.Menu
 
         public ChartValues<ObservablePoint> Series1 { get; set; }
 
-        public void GeneratePlot(PlotInfo plotInfo)
+        public async void GeneratePlot(PlotInfo plotInfo)
         {
             DataContext = null;
-
             Series1 = new ChartValues<ObservablePoint>();
+            DataContext = this;
 
-            for (int i = 0; i < plotInfo.SeriesIn.Count; i++)
+            Cursor = Cursors.Wait;
+
+            int step = maxEpochs / 10;
+            int c = 0;
+
+            for (int i = 0; i < maxEpochs; i++)
             {
-                Series1.Add(plotInfo.SeriesIn[i]);
+                Series1.Add(plotInfo.SeriesIn.Dequeue());
+                if (c++ % step == 0)
+                    await Task.Delay(200);
             }
 
-            DataContext = this;
+            Cursor = Cursors.Arrow;
         }
 
         private void BtnLoadFromText_Click(object sender, RoutedEventArgs e)
         {
             if (PointsBox.Text == string.Empty)
             {
-                FileNameLbl.Foreground = (Brush)Application.Current.Resources["Color2"];
+                FileNameLbl.Foreground = (Brush)Application.Current.Resources["Alizarin"];
                 FileNameLbl.Content = "None points in memory";
                 return;
             }
@@ -159,7 +166,7 @@ namespace Optimalization_Methods.Menu
             }
 
             BtnPlot.IsEnabled = true;
-            FileNameLbl.Foreground = (Brush)Application.Current.Resources["Color1"];
+            FileNameLbl.Foreground = (Brush)Application.Current.Resources["GreenSea"];
             FileNameLbl.Content = "Points from input box are in memory";
         }
 
@@ -180,6 +187,11 @@ namespace Optimalization_Methods.Menu
             return myList;
         }
 
+        private void ComboBoxItem_Selected(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private List<double> ReadValues()
         {
             List<double> myList = new List<double>();
@@ -195,7 +207,7 @@ namespace Optimalization_Methods.Menu
             if (openFileDialog1.ShowDialog() == true)
             {
                 FileNameLbl.Content = "Points from file: " + openFileDialog1.SafeFileName;
-                FileNameLbl.Foreground = (Brush)Application.Current.Resources["Color1"];
+                FileNameLbl.Foreground = (Brush)Application.Current.Resources["GreenSea"];
                 try
                 {
                     using (StreamReader sr = new StreamReader(openFileDialog1.FileName))
@@ -213,7 +225,7 @@ namespace Optimalization_Methods.Menu
                 catch (Exception ex)
                 {
                     FileNameLbl.Content = "None points in memory";
-                    FileNameLbl.Foreground = (Brush)Application.Current.Resources["Color2"];
+                    FileNameLbl.Foreground = (Brush)Application.Current.Resources["Alizarin"];
                     BtnPlot.IsEnabled = false;
                     MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
                 }
