@@ -186,11 +186,6 @@ namespace Optimalization_Methods.Menu
             return myList;
         }
 
-        private void ComboBoxItem_Selected(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private List<double> ReadValues()
         {
             List<double> myList = new List<double>();

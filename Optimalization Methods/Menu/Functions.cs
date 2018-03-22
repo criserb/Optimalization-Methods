@@ -1,5 +1,8 @@
 ﻿using System;
 
+//List of used function
+//https://www.sfu.ca/~ssurjano/index.html
+
 namespace Optimalization_Methods.Menu
 {
     public enum FunctionChoice

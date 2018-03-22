@@ -6,13 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
+//https://msdn.microsoft.com/en-us/magazine/mt147244.aspx
+
 namespace Optimalization_Methods.Menu
 {
-    class PsoAlgorithm
+    public class PsoAlgorithm
     {
         private double trueMin = 0;
         private List<double> values;
-        private int numFireflies, maxEpochs, dim, seed = 0;
+        private int numParticles, maxEpochs, dim;
         private double minX, maxX;
         private Queue<ObservablePoint> pointsToPlot;
         //static void Main(string[] args)
@@ -52,19 +54,53 @@ namespace Optimalization_Methods.Menu
         //    Console.ReadLine();
         //} // Main
 
-        static double Error(double[] x)
+        public PsoAlgorithm(int numParticles, int maxEpochs, double minX, double maxX, List<double> values)
+        {
+            this.dim = values.Count;
+            this.numParticles = numParticles;
+            this.maxEpochs = maxEpochs;
+            this.minX = minX;
+            this.maxX = maxX;
+            this.values = values;
+        }
+
+        double Error(double[] x, FunctionDelegate functionDelegate)
         {
             // 0.42888194248035300000 when x0 = -sqrt(2), x1 = 0
-            double trueMin = -0.42888194; // true min for z = x * exp(-(x^2 + y^2))
-            double z = x[0] * Math.Exp(-((x[0] * x[0]) + (x[1] * x[1])));
+            //double trueMin = -0.42888194; // true min for z = x * exp(-(x^2 + y^2))
+            double z = functionDelegate(x, dim);
             return (z - trueMin) * (z - trueMin); // squared diff
         }
 
-        static double[] Solve(int dim, int numParticles, double minX, double maxX, int maxEpochs, double exitError)
+        public PlotInfo Start(FunctionDelegate functionDelegate)
+        {
+            FunctionDelegate myFunction = functionDelegate;
+
+            trueMin = myFunction(values.ToArray(), dim);
+
+            double[] bestPosition = Solve(myFunction);
+            double z = myFunction(bestPosition, dim);
+            double error = Error(bestPosition, myFunction);
+
+            PlotInfo plotInfo = new PlotInfo
+            {
+                SeriesIn = pointsToPlot,
+                Error = error,
+                Val = z,
+                TrueMin = trueMin,
+                BestPostion = bestPosition
+            };
+
+            // ShowDetails(bestPosition, trueMin, z, error);
+
+            return plotInfo;
+        }
+
+        double[] Solve(FunctionDelegate function)
         {
             // assumes existence of an accessible Error function and a Particle class
             Random rnd = new Random(0);
-
+            pointsToPlot = new Queue<ObservablePoint>();
             Particle[] swarm = new Particle[numParticles];
             double[] bestGlobalPosition = new double[dim]; // best solution found by any particle in the swarm
             double bestGlobalError = double.MaxValue; // smaller values better
@@ -76,7 +112,7 @@ namespace Optimalization_Methods.Menu
                 for (int j = 0; j < randomPosition.Length; ++j)
                     randomPosition[j] = (maxX - minX) * rnd.NextDouble() + minX; // 
 
-                double error = Error(randomPosition);
+                double error = Error(randomPosition, function);
                 double[] randomVelocity = new double[dim];
 
                 for (int j = 0; j < randomVelocity.Length; ++j)
@@ -137,7 +173,7 @@ namespace Optimalization_Methods.Menu
                     }
                     newPosition.CopyTo(currP.position, 0);
 
-                    newError = Error(newPosition);
+                    newError = Error(newPosition, function);
                     currP.error = newError;
 
                     if (newError < currP.bestError)
@@ -159,7 +195,7 @@ namespace Optimalization_Methods.Menu
                         // new position, leave velocity, update error
                         for (int j = 0; j < currP.position.Length; ++j)
                             currP.position[j] = (maxX - minX) * rnd.NextDouble() + minX;
-                        currP.error = Error(currP.position);
+                        currP.error = Error(currP.position, function);
                         currP.position.CopyTo(currP.bestPosition, 0);
                         currP.bestError = currP.error;
 
@@ -171,6 +207,7 @@ namespace Optimalization_Methods.Menu
                     }
 
                 } // each Particle
+                pointsToPlot.Enqueue(new ObservablePoint(epoch + 1, function(bestGlobalPosition, dim)));
                 ++epoch;
             } // while
 

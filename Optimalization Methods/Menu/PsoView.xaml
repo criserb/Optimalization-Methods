@@ -4,11 +4,78 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Optimalization_Methods.Menu"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="1024"
       Title="PsoView">
 
     <Grid Background="#FF171717">
-        
+        <Grid x:Name="myGrid" Margin="352,10,22,69" Height="500" Width="650" Background="#FFC5C5C5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="467*"/>
+                <RowDefinition Height="133*"/>
+            </Grid.RowDefinitions>
+            <Label Content="Particle Swarm Optimization Algorithm"  Height="41" Width="650" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24" Foreground="#FF686868" RenderTransformOrigin="0.5,0.5" />
+            <lvc:CartesianChart x:Name="myChart" LegendLocation="Bottom" Width="Auto" Height="Auto" Foreground="#FF272727" BorderBrush="#FF272727" ScrollBarFill="#1EFFFFFF" Margin="0,41,0,0" Grid.RowSpan="2" >
+                <lvc:CartesianChart.Series>
+                    <lvc:LineSeries Title="Function value" Values="{Binding Series1}" LineSmoothness="1" StrokeThickness="1" 
+                                DataLabels="False" FontSize="20" Foreground="DarkGray"
+                                Stroke="{StaticResource Alizarin}" Fill="Transparent" PointGeometrySize="2" />
+                </lvc:CartesianChart.Series>
+                <lvc:CartesianChart.ChartLegend>
+                    <lvc:DefaultLegend BulletSize="10" Background="OrangeRed"/>
+                </lvc:CartesianChart.ChartLegend>
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Foreground="Gray" Title="Epoch">
+                        <lvc:Axis.Separator>
+                            <lvc:Separator IsEnabled="True"></lvc:Separator>
+                        </lvc:Axis.Separator>
+                    </lvc:Axis>
+                </lvc:CartesianChart.AxisX>
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Foreground="Gray" Title="Value of function">
+                        <lvc:Axis.Separator>
+                            <lvc:Separator IsEnabled="True"></lvc:Separator>
+                        </lvc:Axis.Separator>
+                    </lvc:Axis>
+                </lvc:CartesianChart.AxisY>
+            </lvc:CartesianChart>
+        </Grid>
+        <TextBox x:Name="FirefliesBox" Margin="140,39,0,0" Text="{Binding Value, ElementName=slider}" Height="26"/>
+        <TextBox x:Name="MinXBox" Margin="140,101,0,0" Text="0" Height="26"/>
+        <TextBox x:Name="EpochsBox" Margin="140,70,0,0" Text="{Binding Value, ElementName=slider2}" Height="26"/>
+        <TextBox x:Name="MaxXBox" Margin="140,132,0,0" Height="26" Text="3,2"/>
+        <Label x:Name="FileNameLbl" Foreground="{StaticResource Alizarin}" Content="None points in memory" Margin="23,10,0,0" Width="294"/>
+        <Label Content="number of particles:"  Margin="23,39,0,0"  Height="26"  Width="116"/>
+        <Label Content="minX: "  Margin="23,101,0,0"  Height="26"  Width="109"/>
+        <Label Content="max epochs:"  Margin="23,70,0,0" Height="26"  Width="87"/>
+        <Label Content="maxX:"  Margin="23,132,0,0"  Height="26" Width="109" />
+        <Button x:Name="BtnPlot" Content="Plot"  Margin="238,258,0,0"  Width="102" Click="BtnPlot_Click" Height="24" Style="{StaticResource ButtonStyleStart}" IsEnabled="False" />
+        <Button x:Name="BtnLoad" Content="Load points from file"  Margin="23,282,0,0"  Width="205" Height="24" Style="{StaticResource ButtonStyleStart}" Click="BtnLoadFromFile_Click" />
+        <TextBlock TextWrapping="Wrap" Height="68" Margin="23,184,795,348" Background="Transparent" Width="206" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" >
+            <Run Foreground="{StaticResource GreenSea}" Text="&#x9;            "/><Run Foreground="#16a085" Text="Note:"/><LineBreak/><Run Text="  c"/><Run Text="hoose function or input your own "/><Run Text="          "/><Run Text="  "/><LineBreak/><Run Text="           "/><Run Text="function in function box"/></TextBlock>
+        <ComboBox Background="{StaticResource TextBoxBg}" x:Name="ComboBox" HorizontalAlignment="Left" Height="24" Margin="23,258,0,0" VerticalAlignment="Top" Width="205" SelectedIndex="0" VerticalContentAlignment="Center"
+                  Foreground="{DynamicResource GreenSea}" HorizontalContentAlignment="Center" >
+            <ComboBoxItem VerticalContentAlignment="Center">Michalewicz function</ComboBoxItem>
+            <ComboBoxItem VerticalContentAlignment="Center">Rosenbrock function</ComboBoxItem>
+            <ComboBoxItem VerticalContentAlignment="Center">Ackley function</ComboBoxItem>
+            <ComboBoxItem VerticalContentAlignment="Center">Rastrigin function</ComboBoxItem>
+            <ComboBoxItem VerticalContentAlignment="Center">Sphere function</ComboBoxItem>
+            <ComboBoxItem VerticalContentAlignment="Center">Levy function</ComboBoxItem>
+            <ComboBoxItem VerticalContentAlignment="Center">Griewank function</ComboBoxItem>
+        </ComboBox>
+        <TextBox x:Name="DetailsBox" IsReadOnly="True" Cursor="Arrow" HorizontalAlignment="Left" Height="114" Margin="23,334,0,0" VerticalAlignment="Top" Width="294"/>
+        <TextBox x:Name="PointsBox" HorizontalAlignment="Left" Height="50" Margin="23,470,0,0" VerticalAlignment="Top" Width="294"/>
+        <TextBlock Margin="23,448,707,130" Foreground="White" Width="294">
+            <Run FontSize="12" >points input box ( </Run>
+            <Run FontSize="14" FontStyle="Italic" Foreground="{StaticResource GreenSea}" > please use </Run>
+            <Run FontSize="14" FontStyle="Italic" Foreground="{StaticResource BelizeHole}" > / </Run>
+            <Run FontSize="14" FontStyle="Italic" Foreground="{StaticResource GreenSea}" > as a separator </Run>           
+            <Run FontSize="12" > ): </Run>
+        </TextBlock>
+        <Button x:Name="BtnLoadFromText" Content="Load points from input box"  Margin="23,306,0,0"  Width="205" Height="24" Style="{StaticResource ButtonStyleStart}" Click="BtnLoadFromText_Click" />
+        <Slider x:Name="slider" IsSnapToTickEnabled="True" HorizontalAlignment="Left" Margin="245,8,0,0" VerticalAlignment="Top" Width="102" Maximum="45" Minimum="15" Value="{Binding Text, ElementName=FirefliesBox}" Foreground="{DynamicResource BelizeHole}"/>
+        <Slider x:Name="slider2" IsSnapToTickEnabled="True" HorizontalAlignment="Left" Margin="245,36,0,0" VerticalAlignment="Top" Width="102" Maximum="1000" Minimum="10" Value="{Binding Text, ElementName=EpochsBox}" TickFrequency="10" Foreground="{DynamicResource BelizeHole}"/>
+
     </Grid>
 </Page>
