@@ -54,7 +54,7 @@
         <Button x:Name="BtnLoad" Content="Load points from file"  Margin="30,281,0,0"  Width="205" Height="24" Style="{StaticResource ButtonStyleStart}" Click="BtnLoadFromFile_Click" />
         <TextBlock TextWrapping="Wrap" Height="68" Margin="30,184,788,348" Background="Transparent" Width="206" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" >
             <Run Foreground="{StaticResource GreenSea}" Text="&#x9;            "/><Run Foreground="#16a085" Text="Note:"/><LineBreak/><Run Text="  c"/><Run Text="hoose function or input your own "/><Run Text="          "/><Run Text="  "/><LineBreak/><Run Text="           "/><Run Text="function in function box"/></TextBlock>
-        <ComboBox Background="Transparent" x:Name="ComboBox" HorizontalAlignment="Left" Height="24" Margin="30,257,0,0" VerticalAlignment="Top" Width="205" SelectedIndex="0" VerticalContentAlignment="Center"
+        <ComboBox Background="{StaticResource TextBoxBg}" x:Name="ComboBox" HorizontalAlignment="Left" Height="24" Margin="30,257,0,0" VerticalAlignment="Top" Width="205" SelectedIndex="0" VerticalContentAlignment="Center"
                   Foreground="{DynamicResource GreenSea}" HorizontalContentAlignment="Center" >
             <ComboBoxItem VerticalContentAlignment="Center">Michalewicz function</ComboBoxItem>
             <ComboBoxItem VerticalContentAlignment="Center">Rosenbrock function</ComboBoxItem>
@@ -74,8 +74,8 @@
             <Run FontSize="12" > ): </Run>
         </TextBlock>
         <Button x:Name="BtnLoadFromText" Content="Load points from input box"  Margin="30,305,0,0"  Width="205" Height="24" Style="{StaticResource ButtonStyleStart}" Click="BtnLoadFromText_Click" />
-        <Slider x:Name="slider" IsSnapToTickEnabled="True" HorizontalAlignment="Left" Margin="245,44,0,0" VerticalAlignment="Top" Width="102" Maximum="45" Minimum="15" Value="{Binding Text, ElementName=FirefliesBox}"/>
-        <Slider x:Name="slider2" IsSnapToTickEnabled="True" HorizontalAlignment="Left" Margin="245,74,0,0" VerticalAlignment="Top" Width="102" Maximum="1000" Minimum="10" Value="{Binding Text, ElementName=EpochsBox}" TickFrequency="10"/>
+        <Slider x:Name="slider" IsSnapToTickEnabled="True" HorizontalAlignment="Left" Margin="245,8,0,0" VerticalAlignment="Top" Width="102" Maximum="45" Minimum="15" Value="{Binding Text, ElementName=FirefliesBox}" Foreground="{DynamicResource BelizeHole}"/>
+        <Slider x:Name="slider2" IsSnapToTickEnabled="True" HorizontalAlignment="Left" Margin="245,36,0,0" VerticalAlignment="Top" Width="102" Maximum="1000" Minimum="10" Value="{Binding Text, ElementName=EpochsBox}" TickFrequency="10" Foreground="{DynamicResource BelizeHole}"/>
 
     </Grid>
 </Page>

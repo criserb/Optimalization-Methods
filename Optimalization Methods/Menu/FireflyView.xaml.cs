@@ -33,7 +33,6 @@ namespace Optimalization_Methods.Menu
         public FireflyView()
         {
             InitializeComponent();
-
         }
 
         private bool ValidateData()
