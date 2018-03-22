@@ -16,16 +16,14 @@ namespace Optimalization_Methods.Menu
     {
         private double trueMin = 0;
         private List<double> values;
-        private TextBox textBox;
         private int numFireflies, maxEpochs, dim, seed = 0;
         private double minX, maxX;
         private Queue<ObservablePoint> pointsToPlot;
 
 
 
-        public FireflyAlgorithm(TextBox textBox, int numFireflies, int maxEpochs, double minX, double maxX, List<double> values)
+        public FireflyAlgorithm(int numFireflies, int maxEpochs, double minX, double maxX, List<double> values)
         {
-            this.textBox = textBox;
             this.maxEpochs = maxEpochs;
             this.numFireflies = numFireflies;
             this.minX = minX;

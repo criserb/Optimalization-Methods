@@ -7,7 +7,7 @@
       xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="1024"
-      Title="Firefly">
+      Title="FireflyView">
 
     <Grid Background="#FF171717" >
         <Grid x:Name="myGrid" Margin="352,10,22,69" Height="500" Width="650" Background="#FFC5C5C5">

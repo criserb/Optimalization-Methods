@@ -53,7 +53,7 @@ namespace Optimalization_Methods.Menu
             if (!ValidateData()) return;
 
             PlotInfo plotInfo = new PlotInfo();
-            myFirefly = new FireflyAlgorithm(DetailsBox, numFireflies, maxEpochs, minX, maxX, values);
+            myFirefly = new FireflyAlgorithm(numFireflies, maxEpochs, minX, maxX, values);
             FunctionDelegate functionDelegate = null;
             switch (ComboBox.SelectedIndex)
             {

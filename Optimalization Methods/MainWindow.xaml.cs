@@ -65,7 +65,7 @@ namespace Optimalization_Methods
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            myFrame.Content = new LcgView();
+            myFrame.Content = new PsoView();
             IconImage.Visibility = Visibility.Hidden;
         }
     }

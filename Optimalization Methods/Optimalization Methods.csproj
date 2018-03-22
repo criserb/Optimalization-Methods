@@ -83,7 +83,10 @@
       <DependentUpon>FireflyView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Menu\Functions.cs" />
-    <Compile Include="Menu\ParticleSwarmOptimization.cs" />
+    <Compile Include="Menu\PsoAlgorithm.cs" />
+    <Compile Include="Menu\PsoView.xaml.cs">
+      <DependentUpon>PsoView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Menu\Randomness\CauchyDistributionView.xaml.cs">
       <DependentUpon>CauchyDistributionView.xaml</DependentUpon>
     </Compile>
@@ -104,6 +107,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Menu\FireflyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Menu\PsoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

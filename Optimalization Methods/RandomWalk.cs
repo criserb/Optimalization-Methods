@@ -29,11 +29,11 @@ namespace Optimalization_Methods
         {
                 newBrush = (SolidColorBrush)myTiles[Convert.ToInt32(randomNumber % myTiles.Count)].Fill;
                 int R = newBrush.Color.R;
-                R = (R + 22) % 255;
+                R = (R + 231) % 255;
                 int G = newBrush.Color.G;
-                G = (G + 160) % 255;
+                G = (G + 76) % 255;
                 int B = newBrush.Color.B;
-                B = (B + 133) % 255;
+                B = (B + 60) % 255;
                 myTiles[Convert.ToInt32(randomNumber % myTiles.Count)].Fill = new SolidColorBrush(Color.FromRgb((byte)R, (byte)G, (byte)B)); 
         }
     }
