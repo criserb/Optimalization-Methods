@@ -18,7 +18,7 @@
             <Label Content="Particle Swarm Optimization Algorithm"  Height="41" Width="650" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24" Foreground="#FF686868" RenderTransformOrigin="0.5,0.5" />
             <lvc:CartesianChart x:Name="myChart" LegendLocation="Bottom" Width="Auto" Height="Auto" Foreground="#FF272727" BorderBrush="#FF272727" ScrollBarFill="#1EFFFFFF" Margin="0,41,0,0" Grid.RowSpan="2" >
                 <lvc:CartesianChart.Series>
-                    <lvc:LineSeries Title="Function value" Values="{Binding Series1}" LineSmoothness="1" StrokeThickness="1" 
+                    <lvc:LineSeries Title="Function value" Values="{Binding Series1}" LineSmoothness="1" StrokeThickness="5" 
                                 DataLabels="False" FontSize="20" Foreground="DarkGray"
                                 Stroke="{StaticResource Alizarin}" Fill="Transparent" PointGeometrySize="2" />
                 </lvc:CartesianChart.Series>

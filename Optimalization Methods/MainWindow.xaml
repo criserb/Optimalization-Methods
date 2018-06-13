@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Optimalization_Methods"
         mc:Ignorable="d"
-        Title="Optimalization Methods" Height="630" Width="1084" Icon="Images/Icon.ico" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="{x:Null}">
+        Title="Optimization Methods" Height="630" Width="1084" Icon="Images/Icon.ico" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="{x:Null}">
 
     <Grid Background="#FF171717" x:Name="myGrid">
 
@@ -37,7 +37,13 @@
             </StackPanel>
         </Grid>
         <Frame x:Name="myFrame" HorizontalAlignment="Left" Height="600" VerticalAlignment="Top" Width="1024" Margin="54,2,0,-1" NavigationUIVisibility="Hidden"/>
-        <Image Panel.ZIndex="1" x:Name="IconImage" Source="Images/Icon.png" Height="390" VerticalAlignment="Center" Margin="321,121,261,90" Opacity="0.2"/>
-        <TextBlock HorizontalAlignment="Left" Margin="690,544,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="348" Foreground="White" FontSize="14" Opacity="0.05"><Run Text="© 2018"/><Run Text=" "/><Run Text="KRZYSZTOF BĄDKOWSKI "/><Run Text="ALL RIGHTS RESERVED"/></TextBlock>
+        <Label x:Name="TitleLabel" Content="Optimization Methods" HorizontalAlignment="Center" Margin="54,2,0,0" VerticalAlignment="Center" Height="599" Width="1024" FontSize="72" FontFamily="Sitka Text" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontStretch="Expanded" IsEnabled="False" Opacity="0.2">
+            <Label.Effect>
+                <DropShadowEffect/>
+            </Label.Effect>
+            <Label.Background>
+                <SolidColorBrush Color="Transparent"/>
+            </Label.Background>
+        </Label>
     </Grid>
 </Window>

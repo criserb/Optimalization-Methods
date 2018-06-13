@@ -132,15 +132,12 @@ namespace Optimalization_Methods.Menu
             DataContext = this;
 
             Cursor = Cursors.Wait;
+            int iterations = plotInfo.SeriesIn.Count;
 
-            int step = maxEpochs / 10;
-            int c = 0;
-
-            for (int i = 0; i < maxEpochs; i++)
+            for (int i = 0; i < iterations; i++)
             {
                 Series1.Add(plotInfo.SeriesIn.Dequeue());
-                if (c++ % step == 0)
-                    await Task.Delay(200);
+                await Task.Delay(200);
             }
 
             Cursor = Cursors.Arrow;

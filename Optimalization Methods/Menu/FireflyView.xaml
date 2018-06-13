@@ -50,11 +50,11 @@
         <Label Content="minX: "  Margin="30,101,0,0"  Height="26"  Width="109"/>
         <Label Content="max epochs:"  Margin="30,70,0,0" Height="26"  Width="87"/>
         <Label Content="maxX:"  Margin="30,132,0,0"  Height="26" Width="109" />
-        <Button x:Name="BtnPlot" Content="Plot"  Margin="245,257,0,0"  Width="102" Click="BtnPlot_Click" Height="24" Style="{StaticResource ButtonStyleStart}" IsEnabled="False" />
-        <Button x:Name="BtnLoad" Content="Load points from file"  Margin="30,281,0,0"  Width="205" Height="24" Style="{StaticResource ButtonStyleStart}" Click="BtnLoadFromFile_Click" />
-        <TextBlock TextWrapping="Wrap" Height="68" Margin="30,184,788,348" Background="Transparent" Width="206" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" >
+        <Button x:Name="BtnPlot" Content="Plot"  Margin="235,256,0,0"  Width="102" Click="BtnPlot_Click" Height="24" Style="{StaticResource ButtonStyleStart}" IsEnabled="False" />
+        <Button x:Name="BtnLoad" Content="Load points from file"  Margin="20,280,0,0"  Width="205" Height="24" Style="{StaticResource ButtonStyleStart}" Click="BtnLoadFromFile_Click" />
+        <TextBlock TextWrapping="Wrap" Height="68" Margin="20,184,798,348" Background="Transparent" Width="206" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" >
             <Run Foreground="{StaticResource GreenSea}" Text="&#x9;            "/><Run Foreground="#16a085" Text="Note:"/><LineBreak/><Run Text="  c"/><Run Text="hoose function or input your own "/><Run Text="          "/><Run Text="  "/><LineBreak/><Run Text="           "/><Run Text="function in function box"/></TextBlock>
-        <ComboBox Background="{StaticResource TextBoxBg}" x:Name="ComboBox" HorizontalAlignment="Left" Height="24" Margin="30,257,0,0" VerticalAlignment="Top" Width="205" SelectedIndex="0" VerticalContentAlignment="Center"
+        <ComboBox Background="{StaticResource TextBoxBg}" x:Name="ComboBox" HorizontalAlignment="Left" Height="24" Margin="20,256,0,0" VerticalAlignment="Top" Width="205" SelectedIndex="0" VerticalContentAlignment="Center"
                   Foreground="{DynamicResource GreenSea}" HorizontalContentAlignment="Center" >
             <ComboBoxItem VerticalContentAlignment="Center">Michalewicz function</ComboBoxItem>
             <ComboBoxItem VerticalContentAlignment="Center">Rosenbrock function</ComboBoxItem>
@@ -64,16 +64,16 @@
             <ComboBoxItem VerticalContentAlignment="Center">Levy function</ComboBoxItem>
             <ComboBoxItem VerticalContentAlignment="Center">Griewank function</ComboBoxItem>
         </ComboBox>
-        <TextBox x:Name="DetailsBox" IsReadOnly="True" Cursor="Arrow" HorizontalAlignment="Left" Height="113" Margin="30,334,0,0" VerticalAlignment="Top" Width="294"/>
-        <TextBox x:Name="PointsBox" HorizontalAlignment="Left" Height="51" Margin="30,469,0,0" VerticalAlignment="Top" Width="294"/>
-        <TextBlock Margin="30,447,700,131" Foreground="White" Width="294">
+        <TextBox x:Name="DetailsBox" IsReadOnly="True" Cursor="Arrow" HorizontalAlignment="Left" Height="112" Margin="20,334,0,0" VerticalAlignment="Top" Width="294"/>
+        <TextBox x:Name="PointsBox" HorizontalAlignment="Left" Height="52" Margin="20,468,0,0" VerticalAlignment="Top" Width="294"/>
+        <TextBlock Margin="20,446,710,132" Foreground="White" Width="294">
             <Run FontSize="12" >points input box ( </Run>
             <Run FontSize="14" FontStyle="Italic" Foreground="{StaticResource GreenSea}" > please use </Run>
             <Run FontSize="14" FontStyle="Italic" Foreground="{StaticResource BelizeHole}" > / </Run>
             <Run FontSize="14" FontStyle="Italic" Foreground="{StaticResource GreenSea}" > as a separator </Run>           
             <Run FontSize="12" > ): </Run>
         </TextBlock>
-        <Button x:Name="BtnLoadFromText" Content="Load points from input box"  Margin="30,305,0,0"  Width="205" Height="24" Style="{StaticResource ButtonStyleStart}" Click="BtnLoadFromText_Click" />
+        <Button x:Name="BtnLoadFromText" Content="Load points from input box"  Margin="20,304,0,0"  Width="205" Height="24" Style="{StaticResource ButtonStyleStart}" Click="BtnLoadFromText_Click" />
         <Slider x:Name="slider" IsSnapToTickEnabled="True" HorizontalAlignment="Left" Margin="245,8,0,0" VerticalAlignment="Top" Width="102" Maximum="45" Minimum="15" Value="{Binding Text, ElementName=FirefliesBox}" Foreground="{DynamicResource BelizeHole}"/>
         <Slider x:Name="slider2" IsSnapToTickEnabled="True" HorizontalAlignment="Left" Margin="245,36,0,0" VerticalAlignment="Top" Width="102" Maximum="1000" Minimum="10" Value="{Binding Text, ElementName=EpochsBox}" TickFrequency="10" Foreground="{DynamicResource BelizeHole}"/>
 

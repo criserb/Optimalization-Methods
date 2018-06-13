@@ -104,6 +104,7 @@ namespace Optimalization_Methods.Menu
             Particle[] swarm = new Particle[numParticles];
             double[] bestGlobalPosition = new double[dim]; // best solution found by any particle in the swarm
             double bestGlobalError = double.MaxValue; // smaller values better
+            int step = maxEpochs / 10;
 
             // swarm initialization
             for (int i = 0; i < swarm.Length; ++i)
@@ -207,7 +208,8 @@ namespace Optimalization_Methods.Menu
                     }
 
                 } // each Particle
-                pointsToPlot.Enqueue(new ObservablePoint(epoch + 1, function(bestGlobalPosition, dim)));
+                if ((epoch + 1) % step == 0)
+                    pointsToPlot.Enqueue(new ObservablePoint(epoch + 1, function(bestGlobalPosition, dim)));
                 ++epoch;
             } // while
 
@@ -242,28 +244,6 @@ namespace Optimalization_Methods.Menu
             this.bestPosition = new double[bestPos.Length];
             bestPos.CopyTo(this.bestPosition, 0);
             this.bestError = bestErr;
-        }
-
-        public override string ToString()
-        {
-            string s = "";
-            s += "==========================\n";
-            s += "Position: ";
-            for (int i = 0; i < this.position.Length; ++i)
-                s += this.position[i].ToString("F4") + " ";
-            s += "\n";
-            s += "Error = " + this.error.ToString("F4") + "\n";
-            s += "Velocity: ";
-            for (int i = 0; i < this.velocity.Length; ++i)
-                s += this.velocity[i].ToString("F4") + " ";
-            s += "\n";
-            s += "Best Position: ";
-            for (int i = 0; i < this.bestPosition.Length; ++i)
-                s += this.bestPosition[i].ToString("F4") + " ";
-            s += "\n";
-            s += "Best Error = " + this.bestError.ToString("F4") + "\n";
-            s += "==========================\n";
-            return s;
         }
 
     } // Particle

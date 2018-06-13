@@ -66,6 +66,7 @@ namespace Optimalization_Methods.Menu
             double bestError = double.MaxValue;
             double[] bestPosition = new double[dim]; // Best ever
             Firefly[] swarm = new Firefly[numFireflies]; // All null
+            int step = maxEpochs / 10;
 
             for (int i = 0; i < numFireflies; ++i)
             {
@@ -119,7 +120,8 @@ namespace Optimalization_Methods.Menu
                         bestPosition[k] = swarm[0].position[k];
                 }
                 // add points to plot list
-                pointsToPlot.Enqueue(new ObservablePoint(epoch + 1, function(bestPosition, dim)));
+                if ((epoch +1) % step == 0)
+                    pointsToPlot.Enqueue(new ObservablePoint(epoch + 1, function(bestPosition, dim)));
                 ++epoch;
             } // While            
             return bestPosition;

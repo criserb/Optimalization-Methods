@@ -32,7 +32,7 @@ namespace Optimalization_Methods.Menu
         public PsoView()
         {
             InitializeComponent();
-        }
+                   }
 
         private bool ValidateData()
         {
@@ -132,14 +132,12 @@ namespace Optimalization_Methods.Menu
 
             Cursor = Cursors.Wait;
 
-            int step = maxEpochs / 10;
-            int c = 0;
+            int iterations = plotInfo.SeriesIn.Count;
 
-            for (int i = 0; i < maxEpochs; i++)
+            for (int i = 0; i < iterations; i++)
             {
                 Series1.Add(plotInfo.SeriesIn.Dequeue());
-                if (c++ % step == 0)
-                    await Task.Delay(200);
+                await Task.Delay(200);
             }
 
             Cursor = Cursors.Arrow;
